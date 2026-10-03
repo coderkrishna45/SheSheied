@@ -1,0 +1,75 @@
+{
+  "_comment": "SheShield demo crime incident data. Use this to seed Pinecone if real data is not available.",
+  "_note": "All incidents are FICTIONAL. For demo/testing purposes only.",
+  "metadata": {
+    "source": "SheShield Demo Fixtures v1.0",
+    "area": "Kolkata, West Bengal, India",
+    "generated_at": "2026-10-01",
+    "is_real_data": false
+  },
+  "incidents": [
+    {
+      "id": "DEMO-001",
+      "lat": 22.5731,
+      "lng": 88.3641,
+      "category": "harassment",
+      "incident_date": "2026-07-15",
+      "description": "[DEMO] Verbal harassment reported near market area",
+      "severity": "medium"
+    },
+    {
+      "id": "DEMO-002",
+      "lat": 22.572,
+      "lng": 88.365,
+      "category": "theft",
+      "incident_date": "2026-08-20",
+      "description": "[DEMO] Mobile phone snatching",
+      "severity": "medium"
+    },
+    {
+      "id": "DEMO-003",
+      "lat": 22.5745,
+      "lng": 88.363,
+      "category": "robbery",
+      "incident_date": "2026-09-01",
+      "description": "[DEMO] Bag snatching near bus stop",
+      "severity": "high"
+    },
+    {
+      "id": "DEMO-004",
+      "lat": 22.58,
+      "lng": 88.368,
+      "category": "harassment",
+      "incident_date": "2026-06-10",
+      "description": "[DEMO] Reported eve-teasing",
+      "severity": "medium"
+    },
+    {
+      "id": "DEMO-005",
+      "lat": 22.5815,
+      "lng": 88.37,
+      "category": "violent_crime",
+      "incident_date": "2026-09-15",
+      "description": "[DEMO] Assault reported on isolated street",
+      "severity": "high"
+    },
+    {
+      "id": "DEMO-006",
+      "lat": 22.571,
+      "lng": 88.362,
+      "category": "theft",
+      "incident_date": "2026-05-22",
+      "description": "[DEMO] Wallet theft in crowd",
+      "severity": "low"
+    },
+    {
+      "id": "DEMO-007",
+      "lat": 22.5825,
+      "lng": 88.371,
+      "category": "robbery",
+      "incident_date": "2026-09-20",
+      "description": "[DEMO] Jewellery snatching",
+      "severity": "high"
+    }
+  ]
+}

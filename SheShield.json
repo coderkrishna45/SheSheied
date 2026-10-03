@@ -1,0 +1,634 @@
+{
+  "name": "SheShield",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -880,
+        416
+      ],
+      "id": "e1a0fc1b-ed30-4c76-9ac0-b150c994a300",
+      "name": "Telegram Trigger",
+      "webhookId": "9ef800a5-9b37-4278-9aa3-05208677b98f",
+      "credentials": {
+        "telegramApi": {
+          "id": "CbXuSO9FpCYm0aTl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI Urban Safety Agent.\n\nAnalyze the user's live GPS coordinates and determine the area's safety risk.\n\nINPUT:\n- Latitude: {{ $json.message.location.latitude }}\n- Longitude: {{ $json.message.location.longitude }}\n- Time: {{ $now }}\n\nTASKS:\n- Reverse geocode the location\n- Search nearby crime/RAG database for:\n  - theft\n  - robbery\n  - harassment\n  - unsafe roads\n  - nighttime crime\n  - recent incidents\n- Consider only nearby incidents:\n  - 2 km radius in dense urban areas\n  - 5 km radius in sparse areas\n- Increase risk during late-night or isolated conditions\n\nRISK LEVELS:\n- LOW → low crime activity\n- MEDIUM → moderate incidents or isolated at night\n- HIGH → repeated violent crime or hotspot activity\n\nRETURN ONLY VALID JSON IN THIS FORMAT:\n\n{\n  \"risk_level\": \"LOW | MEDIUM | HIGH\"\n}\n\nDO NOT RETURN ANYTHING ELSE.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6d8bf86b-6a6e-4c35-98b0-0b0fd41ecd0d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        224
+      ],
+      "id": "f72b4b67-43d5-4473-815b-4799166fd32a",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Work with your pinecone DB",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "hackolution",
+          "mode": "list",
+          "cachedResultName": "hackolution"
+        },
+        "topK": 2,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        224
+      ],
+      "id": "31dcf8ad-7f1a-4d64-86e2-46726cd3bbf0",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "jsd8kfC0REBXbhCo",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        288,
+        432
+      ],
+      "id": "7fe68a9d-484e-4823-808f-6f90bec17153",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "qYSsiLqt0q9NZdYI",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=⚠️⚠️⚠️ ALERT!!\nYou appear to be in a high-risk area.\nReply YES within 5 minutes if you are safe, otherwise an emergency SOS will be triggered.\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1152,
+        208
+      ],
+      "id": "131a04bb-7a73-46a2-8880-8066c4da6304",
+      "name": "Send a text message",
+      "webhookId": "1fcabeca-ec0b-4939-ae2e-169c507588c2",
+      "credentials": {
+        "telegramApi": {
+          "id": "CbXuSO9FpCYm0aTl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code Node\n\nconst raw = $json.output;\n\n// Remove markdown code blocks\nconst cleaned = raw\n  .replace(/```json/g, \"\")\n  .replace(/```/g, \"\")\n  .trim();\n\n// Parse JSON\nconst parsed = JSON.parse(cleaned);\n\n// Return only the risk level\nreturn [\n  {\n    json: {\n      risk_level: parsed.risk_level\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        208
+      ],
+      "id": "b099bde9-aaaa-42f1-9a0a-2db6ddfd3a7b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "57a158b1-ff24-4574-b264-b7ca76c2a62f",
+              "leftValue": "={{ $json.risk_level }}",
+              "rightValue": "MEDIUM",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        800,
+        208
+      ],
+      "id": "d01294cf-8ceb-4d53-a452-661e86960ba2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ String($json.message.chat.id) }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        224
+      ],
+      "id": "10ffd693-101f-4275-8b61-135312ef6021",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1520,
+        208
+      ],
+      "id": "b1df62d4-8930-4daf-9f82-69aeb3ffb7bc",
+      "name": "Wait",
+      "webhookId": "ea8715d4-f535-4fc9-a764-913eba867b93"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fd3b6149-fada-4097-b115-e5e78913b36c",
+              "leftValue": "={{ $json.result[0].message.text }}",
+              "rightValue": "Yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1968,
+        208
+      ],
+      "id": "c3409409-0815-4672-8010-2a19bfc5c865",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "url": "https://api.telegram.org/bot8608000445:AAHn7d70QkFZKVnZ3PBNpOV8YIAH3bdyp9o/getUpdates",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1744,
+        208
+      ],
+      "id": "5a4bd809-693d-4362-aa3f-ce7910a1d369",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d5aa1118-2e45-4b5f-aaf1-ddaff432d1e8",
+              "leftValue": "={{ $json.message.location }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -288,
+        416
+      ],
+      "id": "c6ca46f1-85a1-4a61-8b64-83fb742bf806",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "resource": "call",
+        "from": "+17077541636",
+        "to": "+91 7488971265",
+        "message": "Are you safe ?",
+        "options": {
+          "statusCallback": "https://hacksatya.app.n8n.cloud/webhook/twilio-status"
+        }
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        2416,
+        208
+      ],
+      "id": "13d3d6c4-0315-4298-a3b7-4a0c6c12ea48",
+      "name": "Make a call",
+      "credentials": {
+        "twilioApi": {
+          "id": "P0lPZ6VQ4QB0Y4BW",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://nominatim.openstreetmap.org/reverse",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "format",
+              "value": "jsonv2"
+            },
+            {
+              "name": "lat",
+              "value": "={{ $('Telegram Trigger').item.json.message.location.latitude }}"
+            },
+            {
+              "name": "lon",
+              "value": "={{ $('Telegram Trigger').item.json.message.location.longitude }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2192,
+        208
+      ],
+      "id": "96b4c44b-35d3-4c61-a487-e35e01711579",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "resource": "call",
+        "from": "+17077541636",
+        "to": "+91 7488971265",
+        "message": "=You daughter is not recieving the call,she might be in danger.please check her last location was  {{ $('HTTP Request1').item.json.display_name }}",
+        "options": {
+          "statusCallback": ""
+        }
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        2864,
+        208
+      ],
+      "id": "3436474c-c5d1-4ceb-9bdc-5def66875c64",
+      "name": "Make a call1",
+      "credentials": {
+        "twilioApi": {
+          "id": "P0lPZ6VQ4QB0Y4BW",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2640,
+        208
+      ],
+      "id": "7ce8e445-3711-4538-8601-c84f120bb871",
+      "name": "Wait1",
+      "webhookId": "20429f82-3cf7-41c9-8f67-db8aefd2976f"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -576,
+        432
+      ],
+      "id": "578e4d2a-2fcc-4c8a-9db3-31af710cc3de",
+      "name": "Wait2",
+      "webhookId": "f9558480-dd60-41c9-8a8d-cc159d2b60df"
+    }
+  ],
+  "pinData": {
+    "Telegram Trigger": [
+      {
+        "json": {
+          "update_id": 298171868,
+          "message": {
+            "message_id": 211,
+            "from": {
+              "id": 2055662601,
+              "is_bot": false,
+              "first_name": "Alluvia!!",
+              "username": "d_s_22_11",
+              "language_code": "en"
+            },
+            "chat": {
+              "id": 2055662601,
+              "first_name": "Alluvia!!",
+              "username": "d_s_22_11",
+              "type": "private"
+            },
+            "date": 1790794106,
+            "location": {
+              "latitude": 22.588375,
+              "longitude": 88.426075,
+              "live_period": 900
+            }
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Make a call": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Make a call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Make a call1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "7871f7eb-10a1-48ab-81df-b6d87ac686a9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2b41ff1865417c90c3b9ff67d604726ec1523cff49562191f229b239c0cff395"
+  },
+  "nodeGroups": [],
+  "id": "iwSR5k5SK6tNfmkG",
+  "tags": []
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "version": "salt-lake-conditions-preview-1",
+  "kind": "SYNTHETIC_WALKING_CONDITIONS",
+  "disclosure": "Synthetic conditions · live routes",
+  "description": "Illustrative walking conditions assigned to existing mapped roads. These are neither surveys nor crime reports. Road class selects a scenario profile; it does not establish actual lighting, activity or safety.",
+  "geometry_reference": "environment/walking.v1.json",
+  "geometry_source": "OpenStreetMap contributors, ODbL-1.0",
+  "research_reference": "sheshield_sector2_sector5_evidence (1).csv",
+  "research_reference_role": "Unmodified area research, excluded from these synthetic condition scores.",
+  "scope": {
+    "name": "Salt Lake presentation area",
+    "description": "Scenario extent, not an administrative or crime reporting boundary.",
+    "geometry": {"type":"Polygon","coordinates":[[[88.400,22.609],[88.424,22.607],[88.433,22.593],[88.451,22.582],[88.450,22.568],[88.431,22.564],[88.417,22.574],[88.400,22.584],[88.391,22.599],[88.400,22.609]]]}
+  },
+  "zones": [
+    {"id":"sector-v-east-scenario", "name":"Sector V east approach scenario", "profile_id":"quiet", "description":"Hypothetical low-activity stretch with limited lighting; not an observed outage or danger area.", "geometry":{"type":"Polygon","coordinates":[[[88.4345,22.5768],[88.4366,22.5768],[88.4366,22.5793],[88.4345,22.5793],[88.4345,22.5768]]]}},
+    {"id":"sector-ii-north-scenario", "name":"Sector II northern edge scenario", "profile_id":"quiet", "description":"Hypothetical sparse evening activity; no observed condition is asserted.", "geometry":{"type":"Polygon","coordinates":[[[88.417,22.603],[88.424,22.603],[88.424,22.607],[88.417,22.607],[88.417,22.603]]]}}
+  ],
+  "profiles": [
+    {"id":"connected", "level":"LOW", "score":15, "road_classes":["primary","secondary","tertiary","pedestrian","primary_link","secondary_link","tertiary_link"], "conditions":["Continuous lighting", "Regular foot traffic", "Continuous pedestrian space"]},
+    {"id":"local", "level":"MEDIUM", "score":50, "road_classes":["residential","living_street","unclassified","cycleway"], "conditions":["Intermittent lighting", "Light foot traffic", "Shared pedestrian space"]},
+    {"id":"quiet", "level":"HIGH", "score":85, "road_classes":["service","footway","path","track","steps","bridleway"], "conditions":["Limited lighting", "Sparse foot traffic", "Interrupted pedestrian space"]}
+  ]
+}

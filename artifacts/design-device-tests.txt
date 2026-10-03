@@ -1,0 +1,8 @@
+
+com.sheshield.app.DesignPresentationTest:.
+
+Time: 5.018
+
+OK (1 test)
+
+

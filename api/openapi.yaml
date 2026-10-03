@@ -1,0 +1,410 @@
+openapi: 3.0.3
+info:
+  title: SheShield API
+  version: 4.1.0
+  description: Installation-owned journey state and idempotent commands. Coordinates in route geometry are [longitude, latitude].
+servers:
+  - url: http://localhost:8787
+security:
+  - installation: []
+paths:
+  /health:
+    get:
+      security: []
+      responses:
+        '200': {description: API process health}
+  /ready:
+    get:
+      security: []
+      responses:
+        '200': {description: Configuration presence, not provider verification}
+  /v1/sessions:
+    post:
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enrollment_code: {type: string}
+      responses:
+        '200': {description: Random session_token for this installation}
+        '403': {$ref: '#/components/responses/Error'}
+  /v1/evidence/status:
+    get:
+      responses:
+        '200': {description: Dated incident snapshot version and SHA-256, street/context counts, source registry, observations and feed coverage, plus walking snapshot version, collection time, audit counts and loading errors; metadata validation does not authenticate source truth or independent review}
+  /v1/places:
+    get:
+      parameters:
+        - {name: q, in: query, required: true, schema: {type: string, minLength: 3, maxLength: 200}}
+      responses:
+        '200': {description: Explicit place candidates; no implicit destination selection}
+        '429': {$ref: '#/components/responses/Error'}
+        '503': {$ref: '#/components/responses/Error'}
+  /v1/plans:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [mode]
+              properties:
+                mode: {type: string, enum: [LIVE, REHEARSAL], description: Both modes calculate real routes for the selected endpoints; REHEARSAL simulates alerts}
+                recorded_scenario: {type: boolean, default: false, description: Explicitly load the fixed Kolkata fixture in REHEARSAL mode; otherwise origin and destination are required}
+                origin: {$ref: '#/components/schemas/Place'}
+                destination: {$ref: '#/components/schemas/Place'}
+                preference: {type: string, enum: [FASTEST, LIGHTING, NEARBY_PLACES], default: FASTEST}
+                max_extra_minutes: {type: integer, minimum: 0, maximum: 15, default: 5}
+                avoid_area_ids: {type: array, maxItems: 3, items: {type: string}, description: Known named-report area IDs; no guessed danger zones}
+      responses:
+        '200': {description: Owned expiring walking plan with street evidence, separate area context and environment (lighting/walkways/nearby places/source-linked report polygons/preferences and validity). Live safety remains UNKNOWN; preferences require sufficient comparable coverage and supported improvement. Numerical scores are compatibility placeholders}
+        '422': {$ref: '#/components/responses/Error'}
+        '503': {$ref: '#/components/responses/Error'}
+  /v1/plans/{id}/compare:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                preference: {type: string, enum: [FASTEST, LIGHTING, NEARBY_PLACES], default: FASTEST}
+                max_extra_minutes: {type: integer, minimum: 0, maximum: 15, default: 5}
+      responses:
+        '200': {description: Owned unexpired plan with the same walking geometries and current condition evaluation; no provider routing request}
+        '409': {$ref: '#/components/responses/Error'}
+  /v1/trips:
+    get:
+      responses:
+        '200': {description: Installation-owned journeys, newest first}
+    post:
+      parameters:
+        - {$ref: '#/components/parameters/Command'}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [plan_id, route_id]
+              properties:
+                plan_id: {type: string}
+                route_id: {type: string}
+                contacts: {type: array, maxItems: 10, items: {$ref: '#/components/schemas/Contact'}}
+                departure_protection: {$ref: '#/components/schemas/DepartureProtection'}
+      responses:
+        '200': {description: Persistent trip using the exact selected plan route and endpoints}
+        '409': {$ref: '#/components/responses/Error'}
+  /v1/trips/{id}:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    get:
+      responses:
+        '200': {description: Trip, current state, selected route, latest fix and check-in}
+        '404': {$ref: '#/components/responses/Error'}
+    delete:
+      responses:
+        '200': {description: Ended journey removed}
+        '409': {$ref: '#/components/responses/Error'}
+  /v1/trips/{id}/locations:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/Fix'}
+      responses:
+        '200': {description: Updated trip; old sequence numbers are ignored}
+        '400': {$ref: '#/components/responses/Error'}
+  /v1/trips/{id}/check-ins:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      parameters:
+        - {$ref: '#/components/parameters/Command'}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [event_id]
+              properties:
+                event_id: {type: string}
+                segment_id: {type: string, description: Required for SEGMENT check-ins}
+                kind: {type: string, enum: [SEGMENT, PERSONAL, DEVIATION], default: SEGMENT}
+                window_seconds: {type: integer, minimum: 20, maximum: 1800, description: Required for PERSONAL; live minimum 60 seconds, rehearsal minimum 20. DEVIATION must match the opted-in 120 or 300 second window}
+                route_revision: {type: integer, description: Required for DEVIATION; must match the selected route}
+                fixes: {type: array, minItems: 4, maxItems: 20, items: {$ref: '#/components/schemas/Fix'}, description: Required for DEVIATION; 45 seconds of fresh accurate GPS outside the route, independently validated}
+                deadline_ms: {type: integer, format: int64}
+                location: {$ref: '#/components/schemas/Fix'}
+      responses:
+        '200': {description: Persistent deadline plus server_registered_at_ms, delivery_ready, eligible_contacts and companion_seen_at_ms; a pending check-in cannot be overwritten}
+        '409': {$ref: '#/components/responses/Error'}
+  /v1/trips/{id}/check-ins/{eventId}/resolve:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+      - {name: eventId, in: path, required: true, schema: {type: string}}
+    post:
+      parameters:
+        - {$ref: '#/components/parameters/Command'}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: {type: string, enum: [SAFE, SOS]}
+                resolved_at_ms: {type: integer, format: int64, description: Original timely acknowledgement time for offline recovery}
+      responses:
+        '200': {description: Resolved trip; late SAFE cannot reverse an expired deadline}
+        '409': {$ref: '#/components/responses/Error'}
+  /v1/trips/{id}/end:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      parameters:
+        - {$ref: '#/components/parameters/Command'}
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, properties: {cancelled: {type: boolean}}}
+      responses:
+        '200': {description: Completed/cancelled trip with pending escalation stopped}
+  /v1/trips/{id}/reroute:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [origin]
+              properties:
+                origin: {$ref: '#/components/schemas/Fix'}
+                avoid_ahead_meters: {type: number, minimum: 80, maximum: 500, description: Avoid a 35 m radius around this distance ahead on the current route; prior accepted avoidances remain}
+                avoid_area_id: {type: string, description: Known named-report area to avoid; endpoints inside it prevent whole-area avoidance}
+                via_place_id: {type: string, description: Nearby mapped place within 800 m; requires a fresh snapshot and provider walking waypoint. Entrance/hours/assistance remain unconfirmed}
+      responses:
+        '200': {description: Stored proposal_id, trip_id, routes, origin, avoid_areas and expires_at_ms. Valid for five minutes. Includes first-route fields for compatibility. Requires GPS age at most 60 seconds and accuracy at most 50 m; returns only routes with a different upcoming stretch}
+        '422': {$ref: '#/components/responses/Error'}
+  /v1/trips/{id}/nearby:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {type: object, required: [origin], properties: {origin: {$ref: '#/components/schemas/Fix'}}}
+      responses:
+        '200': {description: Up to eight nearby mapped places within 800 m straight distance, with source/hours/entrance limits and snapshot freshness. Requires an owned active trip and fresh accurate location}
+        '422': {$ref: '#/components/responses/Error'}
+  /v1/trips/{id}/route:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      parameters:
+        - {$ref: '#/components/parameters/Command'}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [proposal_id, route_id, route_revision]
+              properties:
+                proposal_id: {type: string}
+                route_id: {type: string}
+                route_revision: {type: integer}
+                expected_check_in_id: {type: string, nullable: true, description: Current pending check-in ID or empty string/null; prevents accepting with an outdated watch state}
+      responses:
+        '200': {description: Accepted server-stored route with destination, contacts, trip identity and existing check-in deadline preserved. Requires fresh GPS within 75 m of proposal start; client scores and geometry are not trusted}
+        '409': {$ref: '#/components/responses/Error'}
+  /v1/trips/{id}/share:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      responses:
+        '200': {description: Private URL, expires in two hours; permits viewing and acknowledgement of the current watch only}
+        '503': {$ref: '#/components/responses/Error'}
+    delete:
+      responses:
+        '200': {description: All links for this owned journey revoked; the watch deadline continues}
+  /v1/sos:
+    post:
+      parameters:
+        - {$ref: '#/components/parameters/Command'}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                trip_id: {type: string}
+                mode: {type: string, enum: [LIVE, REHEARSAL]}
+                trigger: {type: string, enum: [MANUAL, TIMEOUT]}
+                contacts: {type: array, items: {$ref: '#/components/schemas/Contact'}}
+                location: {$ref: '#/components/schemas/Fix'}
+      responses:
+        '200': {description: Trip-linked or standalone incident with truthful delivery timeline}
+  /v1/sos/{id}:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    get:
+      responses:
+        '200': {description: Incident, timeline and separate delivery attempts}
+  /v1/sos/{id}/cancel:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      parameters:
+        - {$ref: '#/components/parameters/Command'}
+      responses:
+        '200': {description: Future attempts cancelled; previously sent messages cannot be recalled}
+  /internal/attempts/{id}/claim:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      security: [{worker: []}]
+      responses:
+        '200': {description: Single-use claimed delivery instructions and signed-callback destinations}
+        '409': {$ref: '#/components/responses/Error'}
+  /internal/attempts/{id}/result:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      security: [{worker: []}]
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, properties: {call_sid: {type: string, nullable: true}, outcome_unknown: {type: boolean}}}
+      responses:
+        '200': {description: Provider request result; uncertain outcomes do not trigger duplicate calls}
+  /v1/provider/twilio/status:
+    post:
+      security: [{twilio: []}]
+      parameters:
+        - {name: attempt_id, in: query, required: true, schema: {type: string}}
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema: {type: object, properties: {CallSid: {type: string}, CallStatus: {type: string}}}
+      responses:
+        '200': {description: Monotonic deduplicated callback processing}
+        '403': {$ref: '#/components/responses/Error'}
+  /v1/provider/twilio/ack:
+    post:
+      security: [{twilio: []}]
+      parameters:
+        - {name: attempt_id, in: query, required: true, schema: {type: string}}
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema: {type: object, properties: {CallSid: {type: string}, Digits: {type: string}}}
+      responses:
+        '200': {description: TwiML response; digit 1 records acknowledgement}
+  /share/{token}/data:
+    parameters:
+      - {name: token, in: path, required: true, schema: {type: string}}
+    get:
+      security: []
+      responses:
+        '200': {description: Read-only journey state, route and last recorded location}
+        '410': {$ref: '#/components/responses/Error'}
+  /share/{token}/companion:
+    parameters:
+      - {name: token, in: path, required: true, schema: {type: string}}
+    post:
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {type: object, required: [event_id], properties: {event_id: {type: string}}}
+      responses:
+        '200': {description: Idempotent viewer acknowledgement; cannot resolve SAFE or change deadline}
+        '409': {$ref: '#/components/responses/Error'}
+        '410': {$ref: '#/components/responses/Error'}
+  /internal/sms/{id}/claim:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      security: [{worker: []}]
+      responses:
+        '200': {description: One-time claim returning contact, SMS message and signed callback URL. Requires enabled cloud SMS and an eligible recipient}
+        '409': {$ref: '#/components/responses/Error'}
+  /internal/sms/{id}/result:
+    parameters:
+      - {$ref: '#/components/parameters/Id'}
+    post:
+      security: [{worker: []}]
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, properties: {message_sid: {type: string}, outcome_unknown: {type: boolean}}}
+      responses:
+        '200': {description: Recorded provider request outcome; does not assert delivery or safety acknowledgement}
+  /v1/provider/twilio/sms-status:
+    post:
+      security: [{twilio: []}]
+      parameters:
+        - {name: attempt_id, in: query, required: true, schema: {type: string}}
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema: {type: object, required: [MessageSid, MessageStatus], properties: {MessageSid: {type: string}, MessageStatus: {type: string}}}
+      responses:
+        '200': {description: Signed, monotonic SMS status update. Delivery does not acknowledge the SOS}
+        '403': {$ref: '#/components/responses/Error'}
+components:
+  securitySchemes:
+    installation: {type: http, scheme: bearer}
+    worker: {type: apiKey, in: header, name: X-Worker-Token}
+    twilio: {type: apiKey, in: header, name: X-Twilio-Signature, description: HMAC validated against the exact public URL and sorted form fields}
+  parameters:
+    Id: {name: id, in: path, required: true, schema: {type: string}}
+    Command: {name: Idempotency-Key, in: header, required: true, schema: {type: string}, description: Stable unique key; reuse only for the identical command}
+  responses:
+    Error:
+      description: Structured error (code, message, retryable, request_id). Authenticated endpoints can also return 401/404; requests can be rate-limited with 429.
+      content:
+        application/json:
+          schema: {type: object, required: [code, message], properties: {code: {type: string}, message: {type: string}, retryable: {type: boolean}, request_id: {type: string}}}
+  schemas:
+    Place:
+      type: object
+      required: [label, latitude, longitude]
+      properties:
+        label: {type: string}
+        latitude: {type: number, minimum: -90, maximum: 90}
+        longitude: {type: number, minimum: -180, maximum: 180}
+    Contact:
+      type: object
+      required: [name, phone]
+      properties:
+        name: {type: string}
+        phone: {type: string, description: Unique international E.164 number}
+    Fix:
+      type: object
+      required: [latitude, longitude, timestamp_ms, accuracy_meters]
+      properties:
+        latitude: {type: number, minimum: -90, maximum: 90}
+        longitude: {type: number, minimum: -180, maximum: 180}
+        timestamp_ms: {type: integer, format: int64}
+        accuracy_meters: {type: number, minimum: 0}
+        sequence: {type: integer, format: int64, description: Required monotonic value for location heartbeat updates}
+    DepartureProtection:
+      type: object
+      required: [enabled, window_seconds]
+      properties:
+        enabled: {type: boolean, default: false}
+        window_seconds: {type: integer, enum: [120, 300], default: 120}

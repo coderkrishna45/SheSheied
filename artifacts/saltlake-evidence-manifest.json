@@ -1,0 +1,22 @@
+{
+  "dataset_id": "saltlake-public-references",
+  "version": "2026-10-02.1",
+  "sha256": "a160806dde8b249d58f6bab9c56e60d04ac6082165291fd79fc40b2f2f09b1eb",
+  "source_updated_at": "2026-10-02T17:03:35.000Z",
+  "published_at": "2026-10-02T17:51:29.665Z",
+  "audit": {
+    "accepted": 0,
+    "context_only": 5,
+    "rejected": 0,
+    "duplicates": 0,
+    "observations_accepted": 0,
+    "observations_rejected": 0,
+    "reasons": {}
+  },
+  "sources": 1,
+  "coverage_areas": 0,
+  "current_observations": 0,
+  "independently_validated": false,
+  "accuracy": "UNMEASURED",
+  "notes": "A schema audit is not a measurement of source completeness or street attribution accuracy."
+}

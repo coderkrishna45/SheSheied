@@ -1,0 +1,12 @@
+{
+  "version": "2026-10-03.kolkata-facilities.052508",
+  "facility_collected_at": "2026-10-03T05:25:08.371268+00:00",
+  "raw_sha256": "3488662957b5ec4655bc4d65f9e6047adf5eb4b04aec7a4a6711b7e9079d0a72",
+  "source": "https://overpass-api.de/api/interpreter",
+  "query": "[out:json][timeout:55];nwr[amenity~\"^(police|hospital)$\"](22.35,88.15,22.80,88.60);out meta center;",
+  "added_places": 414,
+  "police": 48,
+  "hospitals": 403,
+  "roads": 9146,
+  "independently_validated": false
+}

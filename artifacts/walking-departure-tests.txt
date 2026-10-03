@@ -1,0 +1,12 @@
+✔ departure requires opted-in sustained accurate evidence; jumps, gaps, old routes, endpoints and uncertain GPS fail (4.127423ms)
+✔ departure timer is idempotent, survives phone absence, escalates once and explains departure in calls/SMS (74.62603ms)
+✔ SAFE gives a detour grace period; ending closes departure escalation and disabled protection refuses it (27.286198ms)
+✔ a missed departure check shares a private live journey link whose access ends with the journey (10.881029ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 265.05404

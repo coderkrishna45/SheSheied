@@ -1,0 +1,6 @@
+# Version 2 uses n8n Cloud credentials and the workflow Configuration node.
+# This file is documentation, not an n8n Cloud environment file.
+# Configure api_base_url, account_sid and from_number in workflow 04.
+# Configure HTTP Header Auth (X-Worker-Token) and HTTP Basic Auth (Twilio SID/token).
+# API-side environment: api/.env.example.
+# Never put secrets in workflow JSON or source control.

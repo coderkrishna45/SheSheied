@@ -1,0 +1,110 @@
+{
+  "checked_at": "2026-10-02T18:04:24.294Z",
+  "api_url": "https://phi-resolutions-tries-end.trycloudflare.com",
+  "dataset_version": "2026-10-02.1",
+  "dataset_sha256": "a160806dde8b249d58f6bab9c56e60d04ac6082165291fd79fc40b2f2f09b1eb",
+  "checks": [
+    {
+      "area": "Sector V",
+      "origin": {
+        "id": "way/535333498",
+        "label": "Technopolis, WB, India",
+        "latitude": 22.580933,
+        "longitude": 88.437032
+      },
+      "destination": {
+        "id": "node/2460737277",
+        "label": "Wipro, WB, India",
+        "latitude": 22.578998,
+        "longitude": 88.426699
+      },
+      "routes": [
+        {
+          "meters": 1462,
+          "seconds": 1053,
+          "geometry_vertices": 159,
+          "origin_snap_meters": 2,
+          "destination_snap_meters": 6,
+          "safety": "UNKNOWN",
+          "matched_street_reports": 0,
+          "context_reports": 5,
+          "reporting_coverage_percent": 0,
+          "analysis_step_meters": 10,
+          "decision": "WALKING_TIME"
+        },
+        {
+          "meters": 1645,
+          "seconds": 1184,
+          "geometry_vertices": 176,
+          "origin_snap_meters": 2,
+          "destination_snap_meters": 6,
+          "safety": "UNKNOWN",
+          "matched_street_reports": 0,
+          "context_reports": 5,
+          "reporting_coverage_percent": 0,
+          "analysis_step_meters": 10,
+          "decision": "WALKING_TIME"
+        },
+        {
+          "meters": 2338,
+          "seconds": 1683,
+          "geometry_vertices": 268,
+          "origin_snap_meters": 2,
+          "destination_snap_meters": 6,
+          "safety": "UNKNOWN",
+          "matched_street_reports": 0,
+          "context_reports": 5,
+          "reporting_coverage_percent": 0,
+          "analysis_step_meters": 10,
+          "decision": "WALKING_TIME"
+        }
+      ]
+    },
+    {
+      "area": "Sector II",
+      "origin": {
+        "id": "250418641",
+        "label": "BG Block, Sector II, Bidhannagar, Kolkata Metropolitan Area, Rajarhat, North 24 Parganas, West Bengal, 700101, India",
+        "latitude": 22.5953692,
+        "longitude": 88.4222324
+      },
+      "destination": {
+        "id": "250372953",
+        "label": "BJ Block, Sector II, Bidhannagar, Kolkata Metropolitan Area, Rajarhat, North 24 Parganas, West Bengal, 700101, India",
+        "latitude": 22.5902239,
+        "longitude": 88.4267468
+      },
+      "routes": [
+        {
+          "meters": 1089,
+          "seconds": 784,
+          "geometry_vertices": 121,
+          "origin_snap_meters": 23,
+          "destination_snap_meters": 23,
+          "safety": "UNKNOWN",
+          "matched_street_reports": 0,
+          "context_reports": 5,
+          "reporting_coverage_percent": 0,
+          "analysis_step_meters": 10,
+          "decision": "WALKING_TIME"
+        },
+        {
+          "meters": 1164,
+          "seconds": 838,
+          "geometry_vertices": 128,
+          "origin_snap_meters": 23,
+          "destination_snap_meters": 23,
+          "safety": "UNKNOWN",
+          "matched_street_reports": 0,
+          "context_reports": 5,
+          "reporting_coverage_percent": 0,
+          "analysis_step_meters": 10,
+          "decision": "WALKING_TIME"
+        }
+      ]
+    }
+  ],
+  "limitation": "Provider search/routing and honest evidence presentation were checked. This is not a GPS walk or validation of street crime accuracy. Geocoder endpoint pins are not incident locations.",
+  "trips_started": 0,
+  "alerts_requested": 0
+}

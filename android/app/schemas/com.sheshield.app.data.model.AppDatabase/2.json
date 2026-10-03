@@ -1,0 +1,290 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "c06408d8e2c00866f097967806dc6fbc",
+    "entities": [
+      {
+        "tableName": "active_trip",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tripId` TEXT NOT NULL, `sessionToken` TEXT NOT NULL, `originLat` REAL NOT NULL, `originLng` REAL NOT NULL, `destinationLat` REAL NOT NULL, `destinationLng` REAL NOT NULL, `destinationLabel` TEXT NOT NULL, `selectedRouteId` TEXT NOT NULL, `state` TEXT NOT NULL, `startedAtMs` INTEGER NOT NULL, `lastLatitude` REAL NOT NULL, `lastLongitude` REAL NOT NULL, `lastUpdateMs` INTEGER NOT NULL, `checkInDeadlineMs` INTEGER NOT NULL, `trustedContacts` TEXT NOT NULL, `routeJson` TEXT NOT NULL DEFAULT '', `mode` TEXT NOT NULL DEFAULT 'LIVE', `checkInId` TEXT NOT NULL DEFAULT '', `syncStatus` TEXT NOT NULL DEFAULT 'SYNCED', `accuracyMeters` REAL NOT NULL DEFAULT 0, `sosId` TEXT NOT NULL DEFAULT '', `endedAtMs` INTEGER NOT NULL DEFAULT 0, `version` INTEGER NOT NULL DEFAULT 0, `progressIndex` INTEGER NOT NULL DEFAULT 0, `lastCheckInAtMs` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`tripId`))",
+        "fields": [
+          {
+            "fieldPath": "tripId",
+            "columnName": "tripId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionToken",
+            "columnName": "sessionToken",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "originLat",
+            "columnName": "originLat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "originLng",
+            "columnName": "originLng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "destinationLat",
+            "columnName": "destinationLat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "destinationLng",
+            "columnName": "destinationLng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "destinationLabel",
+            "columnName": "destinationLabel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "selectedRouteId",
+            "columnName": "selectedRouteId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtMs",
+            "columnName": "startedAtMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastLatitude",
+            "columnName": "lastLatitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastLongitude",
+            "columnName": "lastLongitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastUpdateMs",
+            "columnName": "lastUpdateMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "checkInDeadlineMs",
+            "columnName": "checkInDeadlineMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trustedContacts",
+            "columnName": "trustedContacts",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "routeJson",
+            "columnName": "routeJson",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "mode",
+            "columnName": "mode",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'LIVE'"
+          },
+          {
+            "fieldPath": "checkInId",
+            "columnName": "checkInId",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "syncStatus",
+            "columnName": "syncStatus",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'SYNCED'"
+          },
+          {
+            "fieldPath": "accuracyMeters",
+            "columnName": "accuracyMeters",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "sosId",
+            "columnName": "sosId",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "endedAtMs",
+            "columnName": "endedAtMs",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "progressIndex",
+            "columnName": "progressIndex",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "lastCheckInAtMs",
+            "columnName": "lastCheckInAtMs",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tripId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "trip_plans",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `json` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "json",
+            "columnName": "json",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "outbox",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `tripId` TEXT NOT NULL, `path` TEXT NOT NULL, `payload` TEXT NOT NULL, `createdAtMs` INTEGER NOT NULL, `expiresAtMs` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tripId",
+            "columnName": "tripId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "path",
+            "columnName": "path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "payload",
+            "columnName": "payload",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAtMs",
+            "columnName": "createdAtMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expiresAtMs",
+            "columnName": "expiresAtMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sos_incidents",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `json` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "json",
+            "columnName": "json",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c06408d8e2c00866f097967806dc6fbc')"
+    ]
+  }
+}

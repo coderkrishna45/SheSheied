@@ -1,0 +1,16 @@
+{
+  "dataset_version": "2026-10-02.1",
+  "evaluated_at": "2026-10-02T17:51:29.614Z",
+  "status": "UNMEASURED",
+  "reference_events": 0,
+  "resolved_reference_events": 0,
+  "unresolved_reference_events": 0,
+  "correct_street": 0,
+  "wrong_street": 0,
+  "missed_resolved": 0,
+  "false_attribution_of_unresolved": 0,
+  "wrong_street_rate": null,
+  "resolved_recall": null,
+  "untested_admitted_events": 0,
+  "limitations": "Measures agreement on the supplied independently reviewed sample only. Does not measure unreported crime, population risk or reporting completeness. Metadata does not authenticate reviewers."
+}

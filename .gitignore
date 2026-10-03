@@ -1,0 +1,37 @@
+# Android
+android/local.properties
+android/.gradle/
+android/app/build/
+android/build/
+android/**/*.iml
+android/.idea/
+android/**/*.jks
+android/**/*.keystore
+
+# n8n secrets
+n8n/n8n.env
+n8n/.env
+
+# Credentials
+**/*.secret
+**/.env
+api/node_modules/
+api/data/
+.tools/
+artifacts/*.apk
+artifacts/*.mp4
+android/.kotlin/
+
+# OS
+.DS_Store
+Thumbs.db
+__pycache__/
+*:Zone.Identifier
+
+# Keep original workflow as reference
+# SheShield.json is intentionally tracked (reference/backup)
+/.idea/
+
+# Raw map downloads contain contributor metadata; publish the stripped snapshot only.
+evidence/saltlake/environment/*.osm.xml
+evidence/saltlake/environment/*.osm.json

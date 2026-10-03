@@ -1,0 +1,69 @@
+{
+  "api_url": "https://shepherd-recruiting-wildlife-drivers.trycloudflare.com",
+  "status": 200,
+  "elapsed_ms": 772,
+  "mode": "LIVE",
+  "geometry_source": "OpenRouteService walking directions",
+  "routes": [
+    {
+      "id": "route-1",
+      "duration_minutes": 16,
+      "distance_meters": 1331,
+      "risk_level": "UNKNOWN",
+      "is_demo_data": false,
+      "preview": {
+        "label": "More supportive",
+        "level": "LOW",
+        "coverage": 100,
+        "summary": {
+          "lower_exposure_meters": 1291,
+          "mixed_meters": 0,
+          "caution_meters": 39,
+          "unknown_meters": 0
+        },
+        "recommended": true,
+        "disclosure": "Synthetic conditions · live routes"
+      }
+    },
+    {
+      "id": "route-0",
+      "duration_minutes": 17,
+      "distance_meters": 1401,
+      "risk_level": "UNKNOWN",
+      "is_demo_data": false,
+      "preview": {
+        "label": "Mixed conditions",
+        "level": "MEDIUM",
+        "coverage": 100,
+        "summary": {
+          "lower_exposure_meters": 1140,
+          "mixed_meters": 234,
+          "caution_meters": 28,
+          "unknown_meters": 0
+        },
+        "recommended": false,
+        "disclosure": "Synthetic conditions · live routes"
+      }
+    },
+    {
+      "id": "route-2",
+      "duration_minutes": 19,
+      "distance_meters": 1567,
+      "risk_level": "UNKNOWN",
+      "is_demo_data": false,
+      "preview": {
+        "label": "More exposed",
+        "level": "HIGH",
+        "coverage": 100,
+        "summary": {
+          "lower_exposure_meters": 1293,
+          "mixed_meters": 0,
+          "caution_meters": 274,
+          "unknown_meters": 0
+        },
+        "recommended": false,
+        "disclosure": "Synthetic conditions · live routes"
+      }
+    }
+  ]
+}

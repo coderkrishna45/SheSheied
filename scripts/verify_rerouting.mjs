@@ -1,0 +1,10 @@
+import {routeLive} from '../api/src/providers.js';
+import {pointAhead,avoidancePolygon,avoidsAreas,differentAhead} from '../api/src/rerouting.js';
+const origin=[88.3510,22.5641],destination=[88.3426,22.5448];
+const current=(await routeLive(origin,destination,process.env.ORS_API_KEY))[0];
+const area={center:pointAhead(current.geometry,origin,100),radius_meters:35};
+const routes=await routeLive(origin,destination,process.env.ORS_API_KEY,{avoid_polygons:avoidancePolygon([area])});
+const usable=routes.filter(r=>avoidsAreas(r,[area])&&differentAhead(r,current,origin)&&r.origin_snap_meters<=50);
+if(!usable.length)throw Error('The routing provider returned no usable alternative around the selected stretch.');
+console.log(JSON.stringify({alternatives:usable.length,avoidRadiusMeters:35,avoidAheadMeters:100,distancesMeters:usable.map(r=>r.distance_meters),geometryPoints:usable.map(r=>r.geometry.length)}));
+console.log('Live provider avoidance verified. No journeys started or alerts requested.');

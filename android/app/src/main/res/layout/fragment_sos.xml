@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🆘"
+            android:textSize="64sp"
+            android:layout_marginTop="24dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SOS Active"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/sos_red"
+            android:gravity="center"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contacting your trusted contacts and emergency services are being notified."
+            android:textColor="@color/on_surface"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginTop="12dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="@color/surface"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tv_sos_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📍 Last location: Loading..."
+                    android:textColor="@color/on_surface"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_sos_dest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/on_surface_secondary"
+                    android:textSize="13sp"
+                    android:layout_marginTop="4dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/surface_variant"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Shows list of contacts being notified via SMS -->
+                <TextView
+                    android:id="@+id/tv_sos_contacts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📱 Checking contacts..."
+                    android:textColor="@color/on_surface"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Re-send SMS button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_resend_sms"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="📨 Re-send SMS Alert"
+            android:textColor="@color/sos_red"
+            app:strokeColor="@color/sos_red"
+            android:layout_marginTop="16dp"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_call_emergency"
+            style="@style/Widget.Waymate.SosButton"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="@string/btn_call_emergency"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            app:cornerRadius="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel_sos"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/btn_cancel_sos"
+            android:textColor="@color/on_surface_secondary"
+            app:strokeColor="@color/surface_variant"
+            android:layout_marginTop="12dp"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+</ScrollView>

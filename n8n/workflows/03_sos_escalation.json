@@ -1,0 +1,330 @@
+{
+  "name": "SheShield - SOS Escalation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sos",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        200
+      ],
+      "id": "wh-sos",
+      "name": "Webhook: SOS",
+      "webhookId": "sos-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst b = $input.first().json.body ?? $input.first().json;\nif (!b.trip_id || !b.session_token) throw new Error('Missing trip_id or session_token');\n\n// Validate and retrieve trip state\nconst tripState = this.getWorkflowStaticData('node');\nconst trip = tripState[b.trip_id];\n\n// Reverse geocode location using Nominatim (free, no key required)\n// This happens in the HTTP Request node below - pass coords through\nreturn [{json: {\n  trip_id: b.trip_id,\n  session_token: b.session_token,\n  latitude: b.latitude ?? trip?.last_lat ?? 0,\n  longitude: b.longitude ?? trip?.last_lng ?? 0,\n  trigger: b.trigger ?? 'MANUAL',\n  trusted_contacts: trip?.trusted_contacts ?? [],\n  timestamp: new Date().toISOString(),\n  validated: Boolean(trip && trip.session_token === b.session_token)\n}}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        200
+      ],
+      "id": "validate-sos",
+      "name": "Validate SOS Request"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"trip_id\":\"{{ $json.trip_id }}\",\"status\":\"SOS_RECEIVED\",\"message\":\"Escalation initiated. Help is on the way.\"}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        100
+      ],
+      "id": "resp-sos",
+      "name": "Respond: SOS Acknowledged"
+    },
+    {
+      "parameters": {
+        "url": "https://nominatim.openstreetmap.org/reverse",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "format",
+              "value": "jsonv2"
+            },
+            {
+              "name": "lat",
+              "value": "={{ $json.latitude }}"
+            },
+            {
+              "name": "lon",
+              "value": "={{ $json.longitude }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "SheShieldApp/1.0 (hackathon@sheshield.dev)"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -320,
+        320
+      ],
+      "id": "geocode",
+      "name": "Reverse Geocode Location"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-contacts",
+              "leftValue": "={{ $('Validate SOS Request').first().json.trusted_contacts.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -80,
+        320
+      ],
+      "id": "check-contacts",
+      "name": "Has Trusted Contacts?"
+    },
+    {
+      "parameters": {
+        "resource": "call",
+        "from": "={{ $vars.TWILIO_FROM_NUMBER }}",
+        "to": "={{ $('Validate SOS Request').first().json.trusted_contacts[0]?.phone ?? '' }}",
+        "message": "=SheShield ALERT: {{ $('Validate SOS Request').first().json.trigger === 'TIMEOUT' ? 'A safety check-in was missed' : 'An SOS was triggered' }} for your contact. Last known location: {{ $('Reverse Geocode Location').first().json.display_name ?? 'Unknown' }}. Trip ID: {{ $('Validate SOS Request').first().json.trip_id }}",
+        "options": {
+          "statusCallback": "={{ $vars.N8N_WEBHOOK_BASE_URL }}/webhook/twilio-status"
+        }
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        160,
+        200
+      ],
+      "id": "twilio-call",
+      "name": "Twilio: Call Contact 1",
+      "credentials": {
+        "twilioApi": {
+          "id": "CONFIGURE_IN_N8N",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "twilio-status",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        400,
+        100
+      ],
+      "id": "wh-twilio-status",
+      "name": "Webhook: Twilio Status",
+      "webhookId": "twilio-status-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// \u2500\u2500\u2500 Twilio status callback handler \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n// Twilio POSTs call status updates to this webhook.\n// We use actual call status to decide whether to escalate further.\n// This is idempotent: duplicate callbacks are safe to re-process.\n\nconst body = $input.first().json.body ?? $input.first().json;\nconst callStatus = body.CallStatus ?? 'unknown';\nconst callSid = body.CallSid ?? '';\nconst to = body.To ?? '';\n\n// Log the status\nconsole.log(`Twilio callback: CallSid=${callSid} Status=${callStatus} To=${to}`);\n\n// Escalation logic based on actual call outcome\nlet shouldEscalate = false;\nlet escalationReason = '';\n\nswitch (callStatus) {\n  case 'completed':\n    // Call was answered - no further escalation needed for this contact\n    shouldEscalate = false;\n    escalationReason = 'Call answered';\n    break;\n  case 'no-answer':\n  case 'busy':\n  case 'failed':\n  case 'canceled':\n    // Contact unreachable - should try next contact\n    shouldEscalate = true;\n    escalationReason = 'Call not answered: ' + callStatus;\n    break;\n  default:\n    // Intermediate state (ringing, in-progress) - no action yet\n    shouldEscalate = false;\n    escalationReason = 'Intermediate state: ' + callStatus;\n}\n\nreturn [{json: {\n  call_sid: callSid,\n  call_status: callStatus,\n  to_number: to,\n  should_escalate: shouldEscalate,\n  escalation_reason: escalationReason,\n  processed_at: new Date().toISOString()\n}}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        100
+      ],
+      "id": "process-twilio",
+      "name": "Process Twilio Status"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "OK",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        100
+      ],
+      "id": "resp-twilio",
+      "name": "Respond: Twilio ACK"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "health",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        600
+      ],
+      "id": "wh-health",
+      "name": "Webhook: Health",
+      "webhookId": "health-001"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\"status\":\"ok\",\"version\":\"1.0\",\"service\":\"SheShield n8n\"}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -560,
+        600
+      ],
+      "id": "resp-health",
+      "name": "Respond: Health OK"
+    }
+  ],
+  "connections": {
+    "Webhook: SOS": {
+      "main": [
+        [
+          {
+            "node": "Validate SOS Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate SOS Request": {
+      "main": [
+        [
+          {
+            "node": "Respond: SOS Acknowledged",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Reverse Geocode Location",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reverse Geocode Location": {
+      "main": [
+        [
+          {
+            "node": "Has Trusted Contacts?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Trusted Contacts?": {
+      "main": [
+        [
+          {
+            "node": "Twilio: Call Contact 1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Webhook: Twilio Status": {
+      "main": [
+        [
+          {
+            "node": "Process Twilio Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Twilio Status": {
+      "main": [
+        [
+          {
+            "node": "Respond: Twilio ACK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Health": {
+      "main": [
+        [
+          {
+            "node": "Respond: Health OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "instanceId": "local"
+  },
+  "id": "sheshield-sos-v2",
+  "tags": [
+    {
+      "name": "sheshield"
+    }
+  ]
+}

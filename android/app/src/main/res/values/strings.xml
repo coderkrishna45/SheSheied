@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Waymate</string>
+    <string name="title_home">Waymate</string>
+    <string name="title_plan_trip">Plan a Safe Trip</string>
+    <string name="title_route_comparison">Choose Your Route</string>
+    <string name="title_active_trip">Active Trip</string>
+    <string name="title_sos">SOS Active</string>
+    <string name="title_contacts">Trusted Contacts</string>
+
+    <string name="btn_plan_trip">Plan a Safe Journey</string>
+    <string name="btn_sos">SOS</string>
+    <string name="btn_contacts">Trusted Contacts</string>
+    <string name="btn_find_routes">Find Safe Routes</string>
+    <string name="btn_start_trip">Start Trip</string>
+    <string name="btn_im_safe">I\'m Safe</string>
+    <string name="btn_end_trip">End Trip</string>
+    <string name="btn_call_emergency">Call 112 (Emergency)</string>
+    <string name="btn_cancel_sos">Cancel SOS &amp; End Trip</string>
+    <string name="btn_add_contact">Add Contact</string>
+    <string name="btn_clear_contacts">Clear All</string>
+
+    <string name="hint_destination">Enter destination (e.g. Victoria Memorial, Kolkata)</string>
+    <string name="hint_contact_name">Contact name</string>
+    <string name="hint_contact_phone">Phone (E.164: +919876543210)</string>
+
+    <string name="label_demo_mode">Demo mode (use fixture data)</string>
+    <string name="label_resume_trip">Resume active trip</string>
+
+    <string name="safety_disclaimer">Risk scores are based on reported crime data. Waymate does not guarantee safety.</string>
+</resources>

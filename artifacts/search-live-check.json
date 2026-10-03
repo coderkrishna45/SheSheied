@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-03T06:49:21.186Z",
+  "results": [
+    {
+      "query": "Victoria Memorial Kolkata",
+      "http": 200,
+      "milliseconds": 373,
+      "places": 1,
+      "code": null
+    },
+    {
+      "query": "Indian Museum Kolkata",
+      "http": 200,
+      "milliseconds": 347,
+      "places": 1,
+      "code": null
+    }
+  ]
+}

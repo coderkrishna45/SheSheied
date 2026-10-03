@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-03T10:05:09.070Z",
+  "recipient_last4": "1265",
+  "status": "DELIVERED",
+  "provider": {
+    "http": 200,
+    "status": "delivered",
+    "error_code": null,
+    "segments": "1"
+  },
+  "clearly_labeled_demo": true
+}

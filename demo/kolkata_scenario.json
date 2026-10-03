@@ -1,0 +1,2149 @@
+{
+  "id": "kolkata-v2",
+  "title": "Esplanade to Victoria Memorial",
+  "is_real_data": false,
+  "geometry_source": "Recorded OpenRouteService foot-walking GeoJSON; replay uses simulated positions",
+  "attribution": "OpenRouteService / OpenStreetMap contributors",
+  "evaluated_at": "2026-10-01T12:00:00Z",
+  "origin": {
+    "label": "Esplanade, Kolkata",
+    "latitude": 22.5641,
+    "longitude": 88.351
+  },
+  "destination": {
+    "label": "Victoria Memorial, Kolkata",
+    "latitude": 22.5448,
+    "longitude": 88.3426
+  },
+  "routes": [
+    {
+      "route_id": "route-0",
+      "geometry": [
+        [
+          88.351099,
+          22.564077
+        ],
+        [
+          88.35096,
+          22.563565
+        ],
+        [
+          88.350945,
+          22.563504
+        ],
+        [
+          88.3508,
+          22.563471
+        ],
+        [
+          88.350418,
+          22.562669
+        ],
+        [
+          88.350032,
+          22.562224
+        ],
+        [
+          88.349908,
+          22.562347
+        ],
+        [
+          88.349354,
+          22.561622
+        ],
+        [
+          88.348734,
+          22.560871
+        ],
+        [
+          88.348653,
+          22.560774
+        ],
+        [
+          88.348538,
+          22.560636
+        ],
+        [
+          88.348411,
+          22.560511
+        ],
+        [
+          88.34848,
+          22.560312
+        ],
+        [
+          88.348567,
+          22.560274
+        ],
+        [
+          88.348593,
+          22.56022
+        ],
+        [
+          88.348583,
+          22.560161
+        ],
+        [
+          88.348766,
+          22.559377
+        ],
+        [
+          88.349845,
+          22.556625
+        ],
+        [
+          88.349656,
+          22.556549
+        ],
+        [
+          88.349409,
+          22.555535
+        ],
+        [
+          88.349378,
+          22.555321
+        ],
+        [
+          88.349556,
+          22.555382
+        ],
+        [
+          88.349848,
+          22.555374
+        ],
+        [
+          88.349847,
+          22.555355
+        ],
+        [
+          88.349839,
+          22.555272
+        ],
+        [
+          88.349832,
+          22.555191
+        ],
+        [
+          88.349841,
+          22.555151
+        ],
+        [
+          88.349777,
+          22.555186
+        ],
+        [
+          88.34953,
+          22.555196
+        ],
+        [
+          88.348773,
+          22.555105
+        ],
+        [
+          88.348413,
+          22.55473
+        ],
+        [
+          88.348187,
+          22.553622
+        ],
+        [
+          88.348055,
+          22.553114
+        ],
+        [
+          88.347686,
+          22.553009
+        ],
+        [
+          88.34745,
+          22.552216
+        ],
+        [
+          88.347141,
+          22.551179
+        ],
+        [
+          88.34664,
+          22.551319
+        ],
+        [
+          88.346543,
+          22.551072
+        ],
+        [
+          88.346554,
+          22.550784
+        ],
+        [
+          88.346693,
+          22.549823
+        ],
+        [
+          88.346629,
+          22.548862
+        ],
+        [
+          88.346414,
+          22.548029
+        ],
+        [
+          88.346266,
+          22.547591
+        ],
+        [
+          88.346542,
+          22.547539
+        ],
+        [
+          88.346856,
+          22.547449
+        ],
+        [
+          88.346959,
+          22.547622
+        ],
+        [
+          88.347068,
+          22.547899
+        ],
+        [
+          88.347658,
+          22.5477
+        ],
+        [
+          88.347892,
+          22.548209
+        ],
+        [
+          88.348285,
+          22.548146
+        ],
+        [
+          88.3483,
+          22.547994
+        ],
+        [
+          88.348232,
+          22.547659
+        ],
+        [
+          88.348136,
+          22.547651
+        ],
+        [
+          88.34809,
+          22.547618
+        ],
+        [
+          88.347083,
+          22.546098
+        ],
+        [
+          88.347045,
+          22.546086
+        ],
+        [
+          88.346976,
+          22.546025
+        ],
+        [
+          88.346645,
+          22.545618
+        ],
+        [
+          88.346462,
+          22.545426
+        ],
+        [
+          88.346273,
+          22.5452
+        ],
+        [
+          88.34621,
+          22.545094
+        ],
+        [
+          88.346014,
+          22.545251
+        ],
+        [
+          88.345814,
+          22.545043
+        ],
+        [
+          88.345499,
+          22.544823
+        ],
+        [
+          88.345398,
+          22.544691
+        ],
+        [
+          88.34535,
+          22.544585
+        ],
+        [
+          88.345342,
+          22.54447
+        ],
+        [
+          88.345058,
+          22.544518
+        ],
+        [
+          88.344754,
+          22.544565
+        ],
+        [
+          88.344699,
+          22.544325
+        ],
+        [
+          88.34459,
+          22.544064
+        ],
+        [
+          88.344506,
+          22.543953
+        ],
+        [
+          88.344017,
+          22.544032
+        ],
+        [
+          88.34323,
+          22.544159
+        ],
+        [
+          88.342708,
+          22.544244
+        ],
+        [
+          88.342753,
+          22.544347
+        ],
+        [
+          88.342767,
+          22.544504
+        ],
+        [
+          88.342703,
+          22.54455
+        ],
+        [
+          88.342634,
+          22.544576
+        ],
+        [
+          88.342564,
+          22.544586
+        ]
+      ],
+      "duration_seconds": 2523,
+      "distance_meters": 3505,
+      "steps": [
+        {
+          "distance": 65.7,
+          "duration": 47.3,
+          "type": 11,
+          "instruction": "Head south on Chowringhee Road",
+          "name": "Chowringhee Road",
+          "way_points": [
+            0,
+            2
+          ]
+        },
+        {
+          "distance": 15.4,
+          "duration": 11.1,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            2,
+            3
+          ]
+        },
+        {
+          "distance": 160.8,
+          "duration": 115.8,
+          "type": 0,
+          "instruction": "Turn left onto Dufferin Road",
+          "name": "Dufferin Road",
+          "way_points": [
+            3,
+            5
+          ]
+        },
+        {
+          "distance": 18.8,
+          "duration": 13.5,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            5,
+            6
+          ]
+        },
+        {
+          "distance": 203.7,
+          "duration": 146.7,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            6,
+            8
+          ]
+        },
+        {
+          "distance": 52,
+          "duration": 37.4,
+          "type": 12,
+          "instruction": "Keep left",
+          "name": "-",
+          "way_points": [
+            8,
+            11
+          ]
+        },
+        {
+          "distance": 23.3,
+          "duration": 16.8,
+          "type": 0,
+          "instruction": "Turn left onto Mayo Road",
+          "name": "Mayo Road",
+          "way_points": [
+            11,
+            12
+          ]
+        },
+        {
+          "distance": 23,
+          "duration": 16.6,
+          "type": 7,
+          "instruction": "Enter the roundabout and take the 2nd exit",
+          "name": "-",
+          "exit_number": 2,
+          "way_points": [
+            12,
+            15
+          ]
+        },
+        {
+          "distance": 89.1,
+          "duration": 64.2,
+          "type": 6,
+          "instruction": "Continue straight",
+          "name": "-",
+          "way_points": [
+            15,
+            16
+          ]
+        },
+        {
+          "distance": 325.6,
+          "duration": 234.4,
+          "type": 6,
+          "instruction": "Continue straight onto Mayo Road",
+          "name": "Mayo Road",
+          "way_points": [
+            16,
+            17
+          ]
+        },
+        {
+          "distance": 160.7,
+          "duration": 115.7,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            17,
+            20
+          ]
+        },
+        {
+          "distance": 49.5,
+          "duration": 35.7,
+          "type": 2,
+          "instruction": "Turn sharp left",
+          "name": "-",
+          "way_points": [
+            20,
+            22
+          ]
+        },
+        {
+          "distance": 25,
+          "duration": 18,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            22,
+            26
+          ]
+        },
+        {
+          "distance": 111.5,
+          "duration": 80.3,
+          "type": 3,
+          "instruction": "Turn sharp right",
+          "name": "-",
+          "way_points": [
+            26,
+            29
+          ]
+        },
+        {
+          "distance": 278.8,
+          "duration": 200.8,
+          "type": 12,
+          "instruction": "Keep left",
+          "name": "-",
+          "way_points": [
+            29,
+            33
+          ]
+        },
+        {
+          "distance": 211,
+          "duration": 151.9,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            33,
+            35
+          ]
+        },
+        {
+          "distance": 476.2,
+          "duration": 342.9,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            35,
+            42
+          ]
+        },
+        {
+          "distance": 62.7,
+          "duration": 45.2,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            42,
+            44
+          ]
+        },
+        {
+          "distance": 54.6,
+          "duration": 39.3,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            44,
+            46
+          ]
+        },
+        {
+          "distance": 64.5,
+          "duration": 46.4,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            46,
+            47
+          ]
+        },
+        {
+          "distance": 61.5,
+          "duration": 44.3,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            47,
+            48
+          ]
+        },
+        {
+          "distance": 41,
+          "duration": 29.5,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            48,
+            49
+          ]
+        },
+        {
+          "distance": 17,
+          "duration": 12.2,
+          "type": 1,
+          "instruction": "Turn right onto Chowringhee Road",
+          "name": "Chowringhee Road",
+          "way_points": [
+            49,
+            50
+          ]
+        },
+        {
+          "distance": 37.9,
+          "duration": 27.3,
+          "type": 5,
+          "instruction": "Turn slight right onto Jawaharlal Nehru Road",
+          "name": "Jawaharlal Nehru Road",
+          "way_points": [
+            50,
+            51
+          ]
+        },
+        {
+          "distance": 214.1,
+          "duration": 154.1,
+          "type": 1,
+          "instruction": "Turn right onto Cathedral Road",
+          "name": "Cathedral Road",
+          "way_points": [
+            51,
+            54
+          ]
+        },
+        {
+          "distance": 144.1,
+          "duration": 103.8,
+          "type": 13,
+          "instruction": "Keep right onto Cathedral Road",
+          "name": "Cathedral Road",
+          "way_points": [
+            54,
+            60
+          ]
+        },
+        {
+          "distance": 26.6,
+          "duration": 19.1,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            60,
+            61
+          ]
+        },
+        {
+          "distance": 115.1,
+          "duration": 82.8,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            61,
+            66
+          ]
+        },
+        {
+          "distance": 61.3,
+          "duration": 44.1,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            66,
+            68
+          ]
+        },
+        {
+          "distance": 73.4,
+          "duration": 52.9,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            68,
+            71
+          ]
+        },
+        {
+          "distance": 187.5,
+          "duration": 135,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            71,
+            74
+          ]
+        },
+        {
+          "distance": 53.2,
+          "duration": 38.3,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            74,
+            79
+          ]
+        },
+        {
+          "distance": 0,
+          "duration": 0,
+          "type": 10,
+          "instruction": "Arrive at your destination, on the right",
+          "name": "-",
+          "way_points": [
+            79,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "route_id": "route-1",
+      "geometry": [
+        [
+          88.351099,
+          22.564077
+        ],
+        [
+          88.35096,
+          22.563565
+        ],
+        [
+          88.350945,
+          22.563504
+        ],
+        [
+          88.3508,
+          22.563471
+        ],
+        [
+          88.350418,
+          22.562669
+        ],
+        [
+          88.350032,
+          22.562224
+        ],
+        [
+          88.349908,
+          22.562347
+        ],
+        [
+          88.349354,
+          22.561622
+        ],
+        [
+          88.348734,
+          22.560871
+        ],
+        [
+          88.348653,
+          22.560774
+        ],
+        [
+          88.348538,
+          22.560636
+        ],
+        [
+          88.348411,
+          22.560511
+        ],
+        [
+          88.34848,
+          22.560312
+        ],
+        [
+          88.348398,
+          22.560282
+        ],
+        [
+          88.348366,
+          22.560222
+        ],
+        [
+          88.348393,
+          22.560137
+        ],
+        [
+          88.347638,
+          22.55912
+        ],
+        [
+          88.344997,
+          22.555556
+        ],
+        [
+          88.34488,
+          22.555479
+        ],
+        [
+          88.344722,
+          22.555419
+        ],
+        [
+          88.344738,
+          22.555344
+        ],
+        [
+          88.345324,
+          22.555311
+        ],
+        [
+          88.345321,
+          22.555274
+        ],
+        [
+          88.345313,
+          22.555153
+        ],
+        [
+          88.345193,
+          22.554753
+        ],
+        [
+          88.345133,
+          22.554683
+        ],
+        [
+          88.345052,
+          22.55447
+        ],
+        [
+          88.344891,
+          22.553895
+        ],
+        [
+          88.344639,
+          22.553118
+        ],
+        [
+          88.344172,
+          22.552132
+        ],
+        [
+          88.343622,
+          22.55032
+        ],
+        [
+          88.343389,
+          22.549645
+        ],
+        [
+          88.343217,
+          22.549159
+        ],
+        [
+          88.343079,
+          22.548752
+        ],
+        [
+          88.34189,
+          22.549243
+        ],
+        [
+          88.341161,
+          22.547658
+        ],
+        [
+          88.341467,
+          22.547539
+        ],
+        [
+          88.34169,
+          22.547478
+        ],
+        [
+          88.34228,
+          22.547572
+        ],
+        [
+          88.342535,
+          22.547595
+        ],
+        [
+          88.342874,
+          22.547597
+        ],
+        [
+          88.342865,
+          22.547514
+        ],
+        [
+          88.342896,
+          22.547435
+        ],
+        [
+          88.342961,
+          22.547376
+        ],
+        [
+          88.342838,
+          22.547165
+        ],
+        [
+          88.342761,
+          22.546818
+        ],
+        [
+          88.34271,
+          22.546451
+        ],
+        [
+          88.342716,
+          22.546294
+        ],
+        [
+          88.342659,
+          22.545999
+        ],
+        [
+          88.342593,
+          22.545934
+        ],
+        [
+          88.342504,
+          22.545492
+        ],
+        [
+          88.341833,
+          22.5456
+        ],
+        [
+          88.341732,
+          22.545059
+        ],
+        [
+          88.341613,
+          22.544421
+        ],
+        [
+          88.342175,
+          22.54433
+        ],
+        [
+          88.342166,
+          22.544437
+        ],
+        [
+          88.342183,
+          22.544566
+        ],
+        [
+          88.342202,
+          22.544593
+        ],
+        [
+          88.342376,
+          22.544614
+        ],
+        [
+          88.342564,
+          22.544586
+        ]
+      ],
+      "duration_seconds": 2255,
+      "distance_meters": 3132,
+      "steps": [
+        {
+          "distance": 65.7,
+          "duration": 47.3,
+          "type": 11,
+          "instruction": "Head south on Chowringhee Road",
+          "name": "Chowringhee Road",
+          "way_points": [
+            0,
+            2
+          ]
+        },
+        {
+          "distance": 15.4,
+          "duration": 11.1,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            2,
+            3
+          ]
+        },
+        {
+          "distance": 160.8,
+          "duration": 115.8,
+          "type": 0,
+          "instruction": "Turn left onto Dufferin Road",
+          "name": "Dufferin Road",
+          "way_points": [
+            3,
+            5
+          ]
+        },
+        {
+          "distance": 18.8,
+          "duration": 13.5,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            5,
+            6
+          ]
+        },
+        {
+          "distance": 203.7,
+          "duration": 146.7,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            6,
+            8
+          ]
+        },
+        {
+          "distance": 52,
+          "duration": 37.4,
+          "type": 12,
+          "instruction": "Keep left",
+          "name": "-",
+          "way_points": [
+            8,
+            11
+          ]
+        },
+        {
+          "distance": 23.3,
+          "duration": 16.8,
+          "type": 0,
+          "instruction": "Turn left onto Mayo Road",
+          "name": "Mayo Road",
+          "way_points": [
+            11,
+            12
+          ]
+        },
+        {
+          "distance": 26.3,
+          "duration": 19,
+          "type": 7,
+          "instruction": "Enter the roundabout and take the 2nd exit onto Dufferin Road",
+          "name": "Dufferin Road",
+          "exit_number": 2,
+          "way_points": [
+            12,
+            15
+          ]
+        },
+        {
+          "distance": 649.6,
+          "duration": 467.7,
+          "type": 6,
+          "instruction": "Continue straight onto Dufferin Road",
+          "name": "Dufferin Road",
+          "way_points": [
+            15,
+            19
+          ]
+        },
+        {
+          "distance": 8.5,
+          "duration": 6.1,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            19,
+            20
+          ]
+        },
+        {
+          "distance": 60.3,
+          "duration": 43.4,
+          "type": 0,
+          "instruction": "Turn left onto Nalini Guha Sarani",
+          "name": "Nalini Guha Sarani",
+          "way_points": [
+            20,
+            21
+          ]
+        },
+        {
+          "distance": 767.1,
+          "duration": 552.3,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            21,
+            33
+          ]
+        },
+        {
+          "distance": 133.7,
+          "duration": 96.3,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            33,
+            34
+          ]
+        },
+        {
+          "distance": 191.5,
+          "duration": 137.9,
+          "type": 0,
+          "instruction": "Turn left onto Casurina Avenue",
+          "name": "Casurina Avenue",
+          "way_points": [
+            34,
+            35
+          ]
+        },
+        {
+          "distance": 180.6,
+          "duration": 130,
+          "type": 0,
+          "instruction": "Turn left onto Queensway",
+          "name": "Queensway",
+          "way_points": [
+            35,
+            40
+          ]
+        },
+        {
+          "distance": 28,
+          "duration": 20.2,
+          "type": 1,
+          "instruction": "Turn right onto Victoria Circus",
+          "name": "Victoria Circus",
+          "way_points": [
+            40,
+            43
+          ]
+        },
+        {
+          "distance": 217.9,
+          "duration": 156.9,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            43,
+            50
+          ]
+        },
+        {
+          "distance": 70,
+          "duration": 50.4,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            50,
+            51
+          ]
+        },
+        {
+          "distance": 133.1,
+          "duration": 95.8,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            51,
+            53
+          ]
+        },
+        {
+          "distance": 58.6,
+          "duration": 42.2,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            53,
+            54
+          ]
+        },
+        {
+          "distance": 67.5,
+          "duration": 48.6,
+          "type": 2,
+          "instruction": "Turn sharp left",
+          "name": "-",
+          "way_points": [
+            54,
+            59
+          ]
+        },
+        {
+          "distance": 0,
+          "duration": 0,
+          "type": 10,
+          "instruction": "Arrive at your destination, on the left",
+          "name": "-",
+          "way_points": [
+            59,
+            59
+          ]
+        }
+      ]
+    },
+    {
+      "route_id": "route-2",
+      "geometry": [
+        [
+          88.351099,
+          22.564077
+        ],
+        [
+          88.35096,
+          22.563565
+        ],
+        [
+          88.350945,
+          22.563504
+        ],
+        [
+          88.3508,
+          22.563471
+        ],
+        [
+          88.350418,
+          22.562669
+        ],
+        [
+          88.350032,
+          22.562224
+        ],
+        [
+          88.349908,
+          22.562347
+        ],
+        [
+          88.349354,
+          22.561622
+        ],
+        [
+          88.348734,
+          22.560871
+        ],
+        [
+          88.348653,
+          22.560774
+        ],
+        [
+          88.348538,
+          22.560636
+        ],
+        [
+          88.348411,
+          22.560511
+        ],
+        [
+          88.34848,
+          22.560312
+        ],
+        [
+          88.348567,
+          22.560274
+        ],
+        [
+          88.348593,
+          22.56022
+        ],
+        [
+          88.348583,
+          22.560161
+        ],
+        [
+          88.348766,
+          22.559377
+        ],
+        [
+          88.349845,
+          22.556625
+        ],
+        [
+          88.349656,
+          22.556549
+        ],
+        [
+          88.349409,
+          22.555535
+        ],
+        [
+          88.349378,
+          22.555321
+        ],
+        [
+          88.349556,
+          22.555382
+        ],
+        [
+          88.349848,
+          22.555374
+        ],
+        [
+          88.349874,
+          22.555368
+        ],
+        [
+          88.34999,
+          22.555343
+        ],
+        [
+          88.350084,
+          22.555322
+        ],
+        [
+          88.350153,
+          22.555308
+        ],
+        [
+          88.350212,
+          22.555297
+        ],
+        [
+          88.350284,
+          22.555285
+        ],
+        [
+          88.350332,
+          22.555259
+        ],
+        [
+          88.350417,
+          22.555228
+        ],
+        [
+          88.350788,
+          22.554871
+        ],
+        [
+          88.351224,
+          22.554433
+        ],
+        [
+          88.351467,
+          22.554193
+        ],
+        [
+          88.351499,
+          22.554161
+        ],
+        [
+          88.351731,
+          22.553924
+        ],
+        [
+          88.35192,
+          22.553742
+        ],
+        [
+          88.352217,
+          22.553426
+        ],
+        [
+          88.352781,
+          22.552903
+        ],
+        [
+          88.352693,
+          22.552816
+        ],
+        [
+          88.352653,
+          22.552775
+        ],
+        [
+          88.352717,
+          22.552624
+        ],
+        [
+          88.352711,
+          22.552603
+        ],
+        [
+          88.352769,
+          22.552538
+        ],
+        [
+          88.352824,
+          22.552477
+        ],
+        [
+          88.352865,
+          22.552486
+        ],
+        [
+          88.352953,
+          22.55239
+        ],
+        [
+          88.353462,
+          22.551827
+        ],
+        [
+          88.353947,
+          22.55124
+        ],
+        [
+          88.353737,
+          22.551097
+        ],
+        [
+          88.353797,
+          22.551019
+        ],
+        [
+          88.353751,
+          22.550815
+        ],
+        [
+          88.354058,
+          22.550748
+        ],
+        [
+          88.354104,
+          22.55071
+        ],
+        [
+          88.354218,
+          22.550741
+        ],
+        [
+          88.354247,
+          22.550684
+        ],
+        [
+          88.354253,
+          22.550675
+        ],
+        [
+          88.354316,
+          22.55066
+        ],
+        [
+          88.354821,
+          22.550118
+        ],
+        [
+          88.354829,
+          22.550094
+        ],
+        [
+          88.354885,
+          22.550095
+        ],
+        [
+          88.354986,
+          22.550065
+        ],
+        [
+          88.354394,
+          22.54788
+        ],
+        [
+          88.354173,
+          22.547088
+        ],
+        [
+          88.35321,
+          22.547283
+        ],
+        [
+          88.35312,
+          22.546945
+        ],
+        [
+          88.352807,
+          22.546984
+        ],
+        [
+          88.352086,
+          22.547075
+        ],
+        [
+          88.351985,
+          22.547087
+        ],
+        [
+          88.351131,
+          22.547197
+        ],
+        [
+          88.350403,
+          22.547291
+        ],
+        [
+          88.350205,
+          22.547316
+        ],
+        [
+          88.350117,
+          22.54733
+        ],
+        [
+          88.349186,
+          22.547474
+        ],
+        [
+          88.349055,
+          22.547494
+        ],
+        [
+          88.348305,
+          22.547623
+        ],
+        [
+          88.348232,
+          22.547659
+        ],
+        [
+          88.348136,
+          22.547651
+        ],
+        [
+          88.34809,
+          22.547618
+        ],
+        [
+          88.347083,
+          22.546098
+        ],
+        [
+          88.347045,
+          22.546086
+        ],
+        [
+          88.346976,
+          22.546025
+        ],
+        [
+          88.346645,
+          22.545618
+        ],
+        [
+          88.346462,
+          22.545426
+        ],
+        [
+          88.346273,
+          22.5452
+        ],
+        [
+          88.34621,
+          22.545094
+        ],
+        [
+          88.346014,
+          22.545251
+        ],
+        [
+          88.345814,
+          22.545043
+        ],
+        [
+          88.345499,
+          22.544823
+        ],
+        [
+          88.345398,
+          22.544691
+        ],
+        [
+          88.34535,
+          22.544585
+        ],
+        [
+          88.345342,
+          22.54447
+        ],
+        [
+          88.345058,
+          22.544518
+        ],
+        [
+          88.344754,
+          22.544565
+        ],
+        [
+          88.344699,
+          22.544325
+        ],
+        [
+          88.34459,
+          22.544064
+        ],
+        [
+          88.344506,
+          22.543953
+        ],
+        [
+          88.344017,
+          22.544032
+        ],
+        [
+          88.34323,
+          22.544159
+        ],
+        [
+          88.342708,
+          22.544244
+        ],
+        [
+          88.342753,
+          22.544347
+        ],
+        [
+          88.342767,
+          22.544504
+        ],
+        [
+          88.342703,
+          22.54455
+        ],
+        [
+          88.342634,
+          22.544576
+        ],
+        [
+          88.342564,
+          22.544586
+        ]
+      ],
+      "duration_seconds": 2833,
+      "distance_meters": 3934,
+      "steps": [
+        {
+          "distance": 65.7,
+          "duration": 47.3,
+          "type": 11,
+          "instruction": "Head south on Chowringhee Road",
+          "name": "Chowringhee Road",
+          "way_points": [
+            0,
+            2
+          ]
+        },
+        {
+          "distance": 15.4,
+          "duration": 11.1,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            2,
+            3
+          ]
+        },
+        {
+          "distance": 160.8,
+          "duration": 115.8,
+          "type": 0,
+          "instruction": "Turn left onto Dufferin Road",
+          "name": "Dufferin Road",
+          "way_points": [
+            3,
+            5
+          ]
+        },
+        {
+          "distance": 18.8,
+          "duration": 13.5,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            5,
+            6
+          ]
+        },
+        {
+          "distance": 203.7,
+          "duration": 146.7,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            6,
+            8
+          ]
+        },
+        {
+          "distance": 52,
+          "duration": 37.4,
+          "type": 12,
+          "instruction": "Keep left",
+          "name": "-",
+          "way_points": [
+            8,
+            11
+          ]
+        },
+        {
+          "distance": 23.3,
+          "duration": 16.8,
+          "type": 0,
+          "instruction": "Turn left onto Mayo Road",
+          "name": "Mayo Road",
+          "way_points": [
+            11,
+            12
+          ]
+        },
+        {
+          "distance": 23,
+          "duration": 16.6,
+          "type": 7,
+          "instruction": "Enter the roundabout and take the 2nd exit",
+          "name": "-",
+          "exit_number": 2,
+          "way_points": [
+            12,
+            15
+          ]
+        },
+        {
+          "distance": 89.1,
+          "duration": 64.2,
+          "type": 6,
+          "instruction": "Continue straight",
+          "name": "-",
+          "way_points": [
+            15,
+            16
+          ]
+        },
+        {
+          "distance": 325.6,
+          "duration": 234.4,
+          "type": 6,
+          "instruction": "Continue straight onto Mayo Road",
+          "name": "Mayo Road",
+          "way_points": [
+            16,
+            17
+          ]
+        },
+        {
+          "distance": 160.7,
+          "duration": 115.7,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            17,
+            20
+          ]
+        },
+        {
+          "distance": 110.4,
+          "duration": 79.5,
+          "type": 2,
+          "instruction": "Turn sharp left",
+          "name": "-",
+          "way_points": [
+            20,
+            30
+          ]
+        },
+        {
+          "distance": 354.8,
+          "duration": 255.4,
+          "type": 13,
+          "instruction": "Keep right",
+          "name": "-",
+          "way_points": [
+            30,
+            38
+          ]
+        },
+        {
+          "distance": 19.4,
+          "duration": 13.9,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            38,
+            40
+          ]
+        },
+        {
+          "distance": 20.5,
+          "duration": 14.7,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            40,
+            42
+          ]
+        },
+        {
+          "distance": 18.2,
+          "duration": 13.1,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            42,
+            44
+          ]
+        },
+        {
+          "distance": 182,
+          "duration": 131,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            44,
+            48
+          ]
+        },
+        {
+          "distance": 99.4,
+          "duration": 71.5,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            48,
+            53
+          ]
+        },
+        {
+          "distance": 12.2,
+          "duration": 8.8,
+          "type": 0,
+          "instruction": "Turn left onto Camac Street",
+          "name": "Camac Street",
+          "way_points": [
+            53,
+            54
+          ]
+        },
+        {
+          "distance": 113.8,
+          "duration": 82,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            54,
+            61
+          ]
+        },
+        {
+          "distance": 341.4,
+          "duration": 245.8,
+          "type": 1,
+          "instruction": "Turn right onto Wood Street",
+          "name": "Wood Street",
+          "way_points": [
+            61,
+            63
+          ]
+        },
+        {
+          "distance": 101.2,
+          "duration": 72.9,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            63,
+            64
+          ]
+        },
+        {
+          "distance": 38.7,
+          "duration": 27.9,
+          "type": 0,
+          "instruction": "Turn left onto Camac Street",
+          "name": "Camac Street",
+          "way_points": [
+            64,
+            65
+          ]
+        },
+        {
+          "distance": 722.8,
+          "duration": 520.4,
+          "type": 1,
+          "instruction": "Turn right onto Ho Chi Minh Sarani",
+          "name": "Ho Chi Minh Sarani",
+          "way_points": [
+            65,
+            79
+          ]
+        },
+        {
+          "distance": 144.1,
+          "duration": 103.8,
+          "type": 13,
+          "instruction": "Keep right onto Cathedral Road",
+          "name": "Cathedral Road",
+          "way_points": [
+            79,
+            85
+          ]
+        },
+        {
+          "distance": 26.6,
+          "duration": 19.1,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            85,
+            86
+          ]
+        },
+        {
+          "distance": 115.1,
+          "duration": 82.8,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            86,
+            91
+          ]
+        },
+        {
+          "distance": 61.3,
+          "duration": 44.1,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            91,
+            93
+          ]
+        },
+        {
+          "distance": 73.4,
+          "duration": 52.9,
+          "type": 0,
+          "instruction": "Turn left",
+          "name": "-",
+          "way_points": [
+            93,
+            96
+          ]
+        },
+        {
+          "distance": 187.5,
+          "duration": 135,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            96,
+            99
+          ]
+        },
+        {
+          "distance": 53.2,
+          "duration": 38.3,
+          "type": 1,
+          "instruction": "Turn right",
+          "name": "-",
+          "way_points": [
+            99,
+            104
+          ]
+        },
+        {
+          "distance": 0,
+          "duration": 0,
+          "type": 10,
+          "instruction": "Arrive at your destination, on the right",
+          "name": "-",
+          "way_points": [
+            104,
+            104
+          ]
+        }
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "id": "FICTIONAL-01",
+      "lat": 22.549063,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-02",
+      "lat": 22.549093,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-03",
+      "lat": 22.549123,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-04",
+      "lat": 22.549153,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-05",
+      "lat": 22.549183,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-06",
+      "lat": 22.549213,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-07",
+      "lat": 22.549243,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-08",
+      "lat": 22.549273,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-09",
+      "lat": 22.549303000000002,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-10",
+      "lat": 22.549333,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-11",
+      "lat": 22.549363,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-12",
+      "lat": 22.549393000000002,
+      "lng": 88.34189,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-COMMON-0",
+      "lat": 22.544719999999998,
+      "lng": 88.3426,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-COMMON-1",
+      "lat": 22.544739999999997,
+      "lng": 88.3426,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-COMMON-2",
+      "lat": 22.54476,
+      "lng": 88.3426,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-COMMON-3",
+      "lat": 22.54478,
+      "lng": 88.3426,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-COMMON-4",
+      "lat": 22.5448,
+      "lng": 88.3426,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-COMMON-5",
+      "lat": 22.544819999999998,
+      "lng": 88.3426,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-COMMON-6",
+      "lat": 22.544839999999997,
+      "lng": 88.3426,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    },
+    {
+      "id": "FICTIONAL-COMMON-7",
+      "lat": 22.54486,
+      "lng": 88.3426,
+      "category": "robbery",
+      "days_old": 0,
+      "source": "Fictional rehearsal fixture"
+    }
+  ]
+}

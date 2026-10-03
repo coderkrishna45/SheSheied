@@ -1,0 +1,7 @@
+# Copy to local.properties. Android Studio normally writes sdk.dir.
+sdk.dir=/path/to/Android/Sdk
+BACKEND_BASE_URL=http://10.0.2.2:8787
+# ORS_API_KEY may temporarily be stored here for the configuration helper.
+# It is never read by the Android build or included in the APK.
+# Prefer api/.env for all service secrets.
+ORS_API_KEY=

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Waymate · Walk with me</title>
+<style>
+:root{color-scheme:light dark;--bg:#f3f5f7;--card:#fff;--ink:#182334;--muted:#606b7b;--accent:#2457c5;--border:#e1e5eb;--soft:#eaf0fc;--warning:#fbf1df;--error:#ba3840}
+@media(prefers-color-scheme:dark){:root{--bg:#10151d;--card:#1b2430;--ink:#f3f5f9;--muted:#b1bdce;--accent:#9ab8ff;--border:#344050;--soft:#26364e;--warning:#3a3022;--error:#ffa5a9}}
+*{box-sizing:border-box}body{font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);margin:0;padding:28px 20px 40px}main{max-width:560px;margin:auto}section{background:var(--card);border-radius:22px;padding:22px;margin:20px 0}h1{font-size:36px;line-height:1.12;letter-spacing:-1.3px;margin:24px 0 10px}h2{font-size:21px;line-height:1.3;letter-spacing:-.4px;margin:0 0 12px}p{line-height:1.55}small,.muted{color:var(--muted)}small{font-size:12px}svg{width:100%;height:230px;background:var(--bg);border-radius:16px}button,a.button{display:block;width:100%;min-height:52px;background:var(--accent);color:var(--card);border:0;border-radius:15px;padding:15px 18px;font:inherit;font-weight:600;text-align:center;text-decoration:none;cursor:pointer}button:disabled{background:var(--soft);color:var(--muted);cursor:default}button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}a{color:var(--accent)}#timer{font-size:52px;line-height:1.1;font-variant-numeric:tabular-nums;font-weight:650;letter-spacing:-2px;margin:14px 0}.notice{background:var(--warning);border-radius:12px;padding:14px;font-size:14px}#error{color:var(--error)}.brand{display:flex;align-items:center;gap:10px;font-weight:650;letter-spacing:-.4px;font-size:20px}.brand svg{width:34px;height:34px;background:none;border-radius:8px}.privacy{display:inline-block;color:var(--muted);font-size:12px;margin-top:12px;letter-spacing:.03em}#route{stroke:var(--accent)}#position{fill:var(--ink);stroke:var(--card);stroke-width:3}[hidden]{display:none!important}@media(max-width:360px){body{padding:20px 14px}section{padding:18px}h1{font-size:32px}}
+</style>
+<main>
+<div class="brand"><svg viewBox="0 0 108 108" aria-hidden="true"><rect width="108" height="108" rx="24" fill="#143A50"/><path d="M33 39 42 67C43 70 47 70 48 67L54 51 60 67C61 70 65 70 66 67L75 39" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><g fill="#79DFBF"><circle cx="33" cy="39" r="5"/><circle cx="75" cy="39" r="5"/></g></svg>Waymate</div><span class="privacy">PRIVATE COMPANION LINK</span>
+<h1>Walk with me</h1><p id="destination">Connecting to the journey…</p>
+<section id="watch" hidden aria-live="polite">
+<small>CHECK-IN DEADLINE</small><div id="timer">—</div><p id="watchText"></p>
+<button id="join" type="button">I'm watching this walk</button><p id="joined" class="muted"></p>
+<p class="notice">Acknowledging tells the traveller someone is watching. Only the traveller can confirm they are safe. If you are concerned, contact them directly.</p>
+</section>
+<section><h2 id="status">Waiting for an update</h2><p id="age" class="notice"></p>
+<svg viewBox="0 0 400 260" role="img" aria-label="Route outline, not a street map"><polyline id="route" fill="none" stroke="#8874e4" stroke-width="4"/><circle id="position" r="7" fill="#238b7f" visibility="hidden"/></svg>
+<small>Route outline · not a street map</small><p><a id="map" class="button" hidden rel="noreferrer" target="_blank">Open last position in Maps</a></p></section>
+<p id="error" role="status"></p>
+<p class="muted">The link expires in two hours and stops sharing when the journey ends or the traveller revokes it. Anyone with this link can view the journey and acknowledge a watch; keep it private.</p>
+<p class="muted">Waymate requests configured contact alerts for missed check-ins. It does not dispatch emergency services. For an emergency in India, call <a href="tel:112">112</a>.</p>
+</main>
+<script>
+const el=id=>document.getElementById(id);
+let data=null,offset=0,received=0,stopped=false;
+function clock(){
+ if(!data)return;
+ const check=data.check_in,age=Date.now()-received;
+ if(check?.status==='PENDING'){
+  const seconds=Math.max(0,Math.ceil((check.deadline_ms-(Date.now()+offset))/1000));
+  el('timer').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');
+  el('join').disabled=seconds===0||age>20000||Boolean(check.companion_seen_at_ms);
+  if(seconds===0)el('watchText').textContent='Deadline reached. Waiting for the server’s contact status. Contact the traveller if concerned.';
+ }
+ if(data.location){const ageSeconds=Math.max(0,Math.floor((Date.now()+offset-data.location.timestamp_ms)/1000));el('age').textContent=(ageSeconds>60?'POSITION STALE · ':'Last position · ')+Math.floor(ageSeconds/60)+' min '+ageSeconds%60+' sec ago · GPS accuracy ±'+Math.round(data.location.accuracy_meters)+' m';}
+ else el('age').textContent='No position has been received. The check-in timer does not require GPS.';
+ if(age>20000)el('error').textContent='Connection interrupted. The information below is from the last update; the server timer may still be running.';
+}
+async function refresh(){
+ if(stopped)return;
+ try{
+  const response=await fetch(location.pathname+'/data',{cache:'no-store'});const d=await response.json();
+  if(!response.ok){if(response.status===410||response.status===404){stopped=true;data=null;el('watch').hidden=true;el('map').hidden=true;el('route').setAttribute('points','');el('position').setAttribute('visibility','hidden');el('age').textContent='Location sharing stopped.';el('status').textContent=d.message;el('destination').textContent='This link is no longer active.';}throw Error(d.message);}
+  data=d;received=Date.now();offset=d.server_now_ms-received;el('error').textContent='';el('destination').textContent='Journey to '+d.destination;
+  el('status').textContent=(d.mode==='REHEARSAL'?'PRACTICE · ':'')+d.state.replaceAll('_',' ');
+  const check=d.check_in;el('watch').hidden=check?.status!=='PENDING';
+  if(check?.status==='PENDING'){
+   el('watchText').textContent=d.mode==='REHEARSAL'?'Practice countdown. No real alerts.':check.delivery_ready?'Deadline saved on the server. The timer continues if the traveller’s phone disconnects.':'Deadline saved, but automatic contact calls are unavailable with the current configuration.';
+   el('joined').textContent=check.companion_seen_at_ms?'Someone with this link acknowledged at '+new Date(check.companion_seen_at_ms).toLocaleTimeString()+'.':'';
+  }
+  const xs=d.geometry.map(p=>p[0]),ys=d.geometry.map(p=>p[1]),minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+  const xy=p=>[20+(p[0]-minX)/(maxX-minX||1)*360,240-(p[1]-minY)/(maxY-minY||1)*220];
+  el('route').setAttribute('points',d.geometry.map(xy).map(p=>p.join(',')).join(' '));
+  el('map').hidden=!d.location;el('position').setAttribute('visibility',d.location?'visible':'hidden');
+  if(d.location){const p=xy([d.location.longitude,d.location.latitude]);el('position').setAttribute('cx',p[0]);el('position').setAttribute('cy',p[1]);el('map').href='https://maps.google.com/?q='+encodeURIComponent(d.location.latitude+','+d.location.longitude);}
+  clock();
+ }catch(error){el('error').textContent=error.message;}
+}
+el('join').addEventListener('click',async()=>{
+ el('join').disabled=true;
+ try{const r=await fetch(location.pathname+'/companion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_id:data?.check_in?.id})});const result=await r.json();if(!r.ok)throw Error(result.message);await refresh();}catch(error){el('error').textContent=error.message;el('join').disabled=false;}
+});
+refresh();setInterval(refresh,10000);setInterval(clock,1000);
+</script>
+</html>

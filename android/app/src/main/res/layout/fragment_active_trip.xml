@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <!-- Status bar -->
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/risk_low"
+        android:text="🟢 Monitoring Active"
+        android:background="@color/surface" />
+
+    <TextView
+        android:id="@+id/tv_destination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:textColor="@color/on_surface_secondary"
+        android:textSize="14sp" />
+
+    <!-- MapLibre MapView (MapLibre v10 uses mapbox package internally) -->
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Normal monitoring panel -->
+    <LinearLayout
+        android:id="@+id/normal_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_end_trip"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/btn_end_trip"
+            android:textColor="@color/on_surface_secondary"
+            app:strokeColor="@color/surface_variant"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sos"
+            style="@style/Widget.Waymate.SosButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="🆘  SOS"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+    <!-- Check-in panel (shown when CHECK_IN_PENDING) -->
+    <LinearLayout
+        android:id="@+id/check_in_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/surface"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_check_in_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⚠️ You have entered a reported-risk area.
+Are you safe?"
+            android:textColor="@color/on_surface"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tv_countdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/risk_high"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_im_safe"
+            style="@style/Widget.Waymate.PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/btn_im_safe"
+            android:textSize="16sp"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sos_checkin"
+            style="@style/Widget.Waymate.SosButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="🆘  Trigger SOS"
+            android:layout_marginTop="8dp"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

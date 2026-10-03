@@ -1,0 +1,426 @@
+{
+  "name": "SheShield v2 \u2014 Cloud calls and SMS delivery worker",
+  "nodes": [
+    {
+      "name": "Delivery Job",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sheshield-delivery",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "name": "Accept Job",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"status\":\"accepted\"}",
+        "options": {
+          "responseCode": 202
+        }
+      }
+    },
+    {
+      "name": "Configuration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "base",
+              "name": "api_base_url",
+              "value": "={{ $('Delivery Job').first().json.body.api_base_url }}",
+              "type": "string"
+            },
+            {
+              "id": "sid",
+              "name": "account_sid",
+              "value": "AC_REPLACE_WITH_YOUR_ACCOUNT_SID",
+              "type": "string"
+            },
+            {
+              "id": "from",
+              "name": "from_number",
+              "value": "+1_REPLACE_WITH_TWILIO_NUMBER",
+              "type": "string"
+            },
+            {
+              "id": "sms-from",
+              "name": "sms_from_number",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      }
+    },
+    {
+      "name": "Validate Configuration",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const c=$input.first().json,job=$('Delivery Job').first().json.body;const sms=job.channel==='SMS',sender=sms?(c.sms_from_number||c.from_number):c.from_number;if(!/^https:\\/\\//.test(c.api_base_url)||c.api_base_url.includes('YOUR-')||!/^AC[a-f0-9]{32}$/i.test(c.account_sid)||!/^\\+[1-9]\\d{7,14}$/.test(sender))throw new Error('Complete the Configuration node before enabling real delivery');if(!/^[a-f0-9-]{36}$/i.test(job.attempt_id||''))throw new Error('Invalid attempt ID');return [{json:{...c,attempt_id:job.attempt_id,channel:sms?'SMS':'CALL'}}];"
+      }
+    },
+    {
+      "name": "Claim Attempt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.api_base_url + '/internal/attempts/' + $json.attempt_id + '/claim' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{}",
+        "options": {
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "name": "Build Voice Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const a=$input.first().json,c=$('Configuration').first().json;const escape=s=>String(s).replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&apos;'}[ch]));const twiml='<Response><Gather numDigits=\"1\" timeout=\"10\" action=\"'+escape(a.ack_url)+'\" method=\"POST\"><Say>'+escape(a.message)+'</Say></Gather><Say>No acknowledgement received.</Say></Response>';const fields=[['To',a.to],['From',c.from_number],['Twiml',twiml],['StatusCallback',a.callback_url],['StatusCallbackMethod','POST'],...['initiated','ringing','answered','completed'].map(v=>['StatusCallbackEvent',v]),['Timeout','25']];return [{json:{attempt_id:a.attempt_id,form_body:fields.map(([k,v])=>encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&')}}];"
+      }
+    },
+    {
+      "name": "Place Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.twilio.com/2010-04-01/Accounts/' + $('Configuration').first().json.account_sid + '/Calls.json' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/x-www-form-urlencoded",
+        "body": "={{ $json.form_body }}",
+        "options": {
+          "timeout": 15000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "name": "Record Request Result",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1540,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration').first().json.api_base_url + '/internal/attempts/' + $('Build Voice Message').first().json.attempt_id + '/result' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({call_sid: $json.body?.sid ?? null, outcome_unknown: !$json.statusCode || $json.statusCode >= 500}) }}",
+        "options": {
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "name": "Is SMS Job",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        820,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "channel",
+              "leftValue": "={{ $json.channel }}",
+              "rightValue": "SMS",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Claim SMS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        -260
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.api_base_url + '/internal/sms/' + $json.attempt_id + '/claim' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{}",
+        "options": {
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "name": "Build SMS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1260,
+        -260
+      ],
+      "parameters": {
+        "jsCode": "const a=$input.first().json,c=$('Configuration').first().json;const fields=[['To',a.to],['From',c.sms_from_number||c.from_number],['Body',a.message],['StatusCallback',a.callback_url]];return [{json:{attempt_id:a.attempt_id,form_body:fields.map(([k,v])=>encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&')}}];"
+      }
+    },
+    {
+      "name": "Send SMS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1480,
+        -260
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.twilio.com/2010-04-01/Accounts/' + $('Configuration').first().json.account_sid + '/Messages.json' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/x-www-form-urlencoded",
+        "body": "={{ $json.form_body }}",
+        "options": {
+          "timeout": 15000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "name": "Record SMS Result",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1700,
+        -260
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration').first().json.api_base_url + '/internal/sms/' + $('Build SMS').first().json.attempt_id + '/result' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({message_sid: $json.body?.sid ?? null, outcome_unknown: !$json.statusCode || $json.statusCode >= 500}) }}",
+        "options": {
+          "timeout": 10000
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Delivery Job": {
+      "main": [
+        [
+          {
+            "node": "Accept Job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Accept Job": {
+      "main": [
+        [
+          {
+            "node": "Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuration": {
+      "main": [
+        [
+          {
+            "node": "Validate Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Configuration": {
+      "main": [
+        [
+          {
+            "node": "Is SMS Job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claim Attempt": {
+      "main": [
+        [
+          {
+            "node": "Build Voice Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Voice Message": {
+      "main": [
+        [
+          {
+            "node": "Place Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Place Call": {
+      "main": [
+        [
+          {
+            "node": "Record Request Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is SMS Job": {
+      "main": [
+        [
+          {
+            "node": "Claim SMS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claim Attempt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claim SMS": {
+      "main": [
+        [
+          {
+            "node": "Build SMS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build SMS": {
+      "main": [
+        [
+          {
+            "node": "Send SMS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send SMS": {
+      "main": [
+        [
+          {
+            "node": "Record SMS Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "none"
+  },
+  "active": false,
+  "pinData": {},
+  "tags": []
+}

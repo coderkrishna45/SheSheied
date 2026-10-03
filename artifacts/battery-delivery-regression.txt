@@ -1,0 +1,20 @@
+✔ cloud SMS queues once per contact and command replay does not duplicate requests (129.579569ms)
+✔ disabled cloud SMS, missing callbacks and unapproved recipients never dispatch a text (35.215615ms)
+✔ SMS cancellation prevents queued delivery; an uncertain dispatch is never blindly repeated (11.301306ms)
+✔ SMS claimed before cancellation can still report delivery without acknowledging safety (11.466029ms)
+✔ n8n Cloud worker has separate voice and SMS branches and builds valid encoded SMS fields (1.406916ms)
+✔ persisted SMS work is not dispatched after live delivery is disabled on restart (5.62789ms)
+✔ a cloud job accepted without a claim becomes outcome unknown without another request (6.937115ms)
+✔ queued voice work cannot dispatch after cloud calling is disabled on restart (14.631754ms)
+✔ companion SMS chooses exactly one recipient, survives replay and reports signed delivery without resolving the watch (9.471456ms)
+✔ ended journeys, unconfigured recipients, practice and link revocation cannot queue live companion SMS (6.127541ms)
+✔ Circle changes update future journey alerts without changing an existing SOS or pending deadline (7.936109ms)
+✔ trial recipient sync only enables verified IDs on an active Trial account and keeps explicit paid allowlists (0.496056ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 430.20129

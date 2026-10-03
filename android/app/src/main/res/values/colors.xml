@@ -1,0 +1,26 @@
+<resources>
+    <color name="waymate_icon_background">#143A50</color>
+    <color name="purple_primary">#2457C5</color>
+    <color name="purple_dark">#193F92</color>
+    <color name="purple_light">#5B80CD</color>
+    <color name="background">#F3F5F7</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#EDF0F4</color>
+    <color name="selection">#EAF0FC</color>
+    <color name="separator">#E1E5EB</color>
+    <color name="on_surface">#182334</color>
+    <color name="on_surface_secondary">#606B7B</color>
+    <color name="risk_low">#146D61</color>
+    <color name="risk_medium">#875414</color>
+    <color name="risk_high">#BA3840</color>
+    <color name="risk_unknown">#606B7B</color>
+    <color name="sos_red">#BA3840</color>
+    <color name="sos_red_dark">#94232D</color>
+    <color name="teal_surface">#E6F2EE</color>
+    <color name="warning_surface">#FBF1DF</color>
+    <color name="danger_surface">#FBECEE</color>
+    <color name="hero_surface">#E9EFF7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+</resources>

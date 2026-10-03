@@ -1,0 +1,67 @@
+{
+  "dataset_version": "2026-10-02.1",
+  "independent_validation": false,
+  "instructions": "Each reviewer independently checks the source and location. Use a steward identity, not a name/email. Fill no coordinates until supported by the source and an attributable street geometry. Merge only completed real reviews; this empty template does not pass admission.",
+  "records": [
+    {
+      "event_id": "saltlake-2026-04-16-ground-assault",
+      "proposed_location": null,
+      "reviews": [],
+      "questions": [
+        "What exactly happened on which date interval?",
+        "Is this the incident location and a public walking street?",
+        "Which referenced road geometry and name identify it?",
+        "Can parallel paths, bridges, walls, sides or conflicting sources change attribution?",
+        "Was this separately checked by a second real reviewer?"
+      ]
+    },
+    {
+      "event_id": "saltlake-2026-06-09-campus-assault",
+      "proposed_location": null,
+      "reviews": [],
+      "questions": [
+        "What exactly happened on which date interval?",
+        "Is this the incident location and a public walking street?",
+        "Which referenced road geometry and name identify it?",
+        "Can parallel paths, bridges, walls, sides or conflicting sources change attribution?",
+        "Was this separately checked by a second real reviewer?"
+      ]
+    },
+    {
+      "event_id": "saltlake-2026-03-19-bridge-collision",
+      "proposed_location": null,
+      "reviews": [],
+      "questions": [
+        "What exactly happened on which date interval?",
+        "Is this the incident location and a public walking street?",
+        "Which referenced road geometry and name identify it?",
+        "Can parallel paths, bridges, walls, sides or conflicting sources change attribution?",
+        "Was this separately checked by a second real reviewer?"
+      ]
+    },
+    {
+      "event_id": "saltlake-2025-08-22-bg-snatching",
+      "proposed_location": null,
+      "reviews": [],
+      "questions": [
+        "What exactly happened on which date interval?",
+        "Is this the incident location and a public walking street?",
+        "Which referenced road geometry and name identify it?",
+        "Can parallel paths, bridges, walls, sides or conflicting sources change attribution?",
+        "Was this separately checked by a second real reviewer?"
+      ]
+    },
+    {
+      "event_id": "saltlake-2025-07-26-pub-exit-assault",
+      "proposed_location": null,
+      "reviews": [],
+      "questions": [
+        "What exactly happened on which date interval?",
+        "Is this the incident location and a public walking street?",
+        "Which referenced road geometry and name identify it?",
+        "Can parallel paths, bridges, walls, sides or conflicting sources change attribution?",
+        "Was this separately checked by a second real reviewer?"
+      ]
+    }
+  ]
+}

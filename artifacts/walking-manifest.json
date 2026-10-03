@@ -1,0 +1,17 @@
+{
+  "version": "2026-10-02.osm.1",
+  "sha256": "4ffff551f6e87ca4c1710742244679536c80a623c79d8e9f421d3a09d253aabe",
+  "published_at": "2026-10-02T20:43:44.150Z",
+  "collected_at": "2026-10-02T20:25:56.092869+00:00",
+  "audit": {
+    "roads": 9146,
+    "places": 234,
+    "areas": 1143,
+    "rejected": 0
+  },
+  "dataset_path": "/home/rohit/projects/SheShield_Ai/api/data/walking-snapshots/2026-10-02.osm.1-4ffff551f6e8/records.json",
+  "license": "ODbL-1.0",
+  "license_url": "https://www.openstreetmap.org/copyright",
+  "independently_validated": false,
+  "limitation": "Community map facts, not live lighting, pedestrian counts, confirmed open businesses, guaranteed assistance or a safety audit. Collection bounds are download extents, not reporting coverage. Last edit is not last survey."
+}

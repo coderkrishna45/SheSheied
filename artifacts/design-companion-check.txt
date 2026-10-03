@@ -1,0 +1,1 @@
+PASS: companion page, acknowledgement, GPS absence/staleness, server timeout, ended-link privacy, and no browser errors. No real alerts sent.

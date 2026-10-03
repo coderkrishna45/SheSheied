@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.sheshield.app.ui.screens.HomeFragment"
+        android:label="@string/title_home">
+        <action android:id="@+id/action_home_to_tripPlanning"
+            app:destination="@id/tripPlanningFragment" />
+        <action android:id="@+id/action_home_to_contacts"
+            app:destination="@id/contactsFragment" />
+        <action android:id="@+id/action_home_to_sos"
+            app:destination="@id/sosFragment" />
+        <action android:id="@+id/action_home_to_activeTrip"
+            app:destination="@id/activeTripFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tripPlanningFragment"
+        android:name="com.sheshield.app.ui.screens.TripPlanningFragment"
+        android:label="@string/title_plan_trip">
+        <action android:id="@+id/action_tripPlanning_to_routeComparison"
+            app:destination="@id/routeComparisonFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/routeComparisonFragment"
+        android:name="com.sheshield.app.ui.screens.RouteComparisonFragment"
+        android:label="@string/title_route_comparison">
+        <action android:id="@+id/action_routeComparison_to_activeTrip"
+            app:destination="@id/activeTripFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/activeTripFragment"
+        android:name="com.sheshield.app.ui.screens.ActiveTripFragment"
+        android:label="@string/title_active_trip">
+        <action android:id="@+id/action_activeTrip_to_sos"
+            app:destination="@id/sosFragment" />
+        <action android:id="@+id/action_activeTrip_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/sosFragment"
+        android:name="com.sheshield.app.ui.screens.SosFragment"
+        android:label="@string/title_sos">
+        <action android:id="@+id/action_sos_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.sheshield.app.ui.screens.ContactsFragment"
+        android:label="@string/title_contacts" />
+
+<fragment android:id="@id/historyFragment" android:name="com.sheshield.app.ui.screens.HistoryFragment" android:label="Activity"/>
+<fragment android:id="@+id/settingsFragment" android:name="com.sheshield.app.ui.screens.SettingsFragment" android:label="Settings"/>
+</navigation>

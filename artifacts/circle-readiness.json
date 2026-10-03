@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-03T06:08:48.820Z",
+  "recipients": [
+    {
+      "last4": "4170",
+      "voice_configured": true,
+      "sms_configured": true,
+      "voice_reason": null,
+      "sms_reason": null
+    },
+    {
+      "last4": "7994",
+      "voice_configured": true,
+      "sms_configured": true,
+      "voice_reason": null,
+      "sms_reason": null
+    },
+    {
+      "last4": "1265",
+      "voice_configured": true,
+      "sms_configured": true,
+      "voice_reason": null,
+      "sms_reason": null
+    }
+  ],
+  "notice": "Configuration checked. Verified Twilio trial recipients are refreshed automatically. Carrier delivery and account limits still apply.",
+  "delivery_tested": false
+}

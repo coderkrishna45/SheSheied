@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-03T09:43:51.274Z",
+  "server": "https://shepherd-recruiting-wildlife-drivers.trycloudflare.com",
+  "initial_state": "ARMED",
+  "final_state": "ALERTED",
+  "elapsed_ms": 21723,
+  "simulated_sms": 1,
+  "only_simulated": true,
+  "clearly_labeled_demo": true
+}

@@ -1,0 +1,245 @@
+{
+  "checked_at": "2026-10-02T20:44:44.426Z",
+  "walking_dataset": {
+    "dataset_version": "2026-10-02.osm.1",
+    "collected_at": "2026-10-02T20:25:56.092869+00:00",
+    "audit": {
+      "roads": 9146,
+      "places": 234,
+      "areas": 1143,
+      "rejected": 0
+    },
+    "error": null
+  },
+  "checks": [
+    {
+      "area": "Sector V",
+      "origin": {
+        "label": "Technopolis",
+        "latitude": 22.580933,
+        "longitude": 88.437032
+      },
+      "destination": {
+        "label": "Wipro",
+        "latitude": 22.578998,
+        "longitude": 88.426699
+      },
+      "routes": [
+        {
+          "route_id": "route-2",
+          "meters": 1462,
+          "seconds": 1053,
+          "safety": "UNKNOWN",
+          "environment": {
+            "mapped_meters": 1434,
+            "lighting_known_meters": 0,
+            "mapped_lit_meters": 0,
+            "mapped_unlit_meters": 0,
+            "current_lighting_meters": 0,
+            "walkway_known_meters": 0,
+            "mapped_walkway_meters": 0,
+            "restricted_meters": 0,
+            "unknown_lighting_meters": 1462,
+            "longest_facility_gap_meters": 1462
+          },
+          "area_reports": [],
+          "nearby": [
+            {
+              "name": "Azad Hind Dhaba",
+              "hours": "UNKNOWN"
+            },
+            {
+              "name": "Composite Hospital",
+              "hours": "UNKNOWN"
+            },
+            {
+              "name": "Kolkata@99",
+              "hours": "UNKNOWN"
+            }
+          ],
+          "preferences": {
+            "lighting": false,
+            "nearby_places": false
+          }
+        },
+        {
+          "route_id": "route-1",
+          "meters": 1645,
+          "seconds": 1184,
+          "safety": "UNKNOWN",
+          "environment": {
+            "mapped_meters": 910,
+            "lighting_known_meters": 0,
+            "mapped_lit_meters": 0,
+            "mapped_unlit_meters": 0,
+            "current_lighting_meters": 0,
+            "walkway_known_meters": 0,
+            "mapped_walkway_meters": 0,
+            "restricted_meters": 0,
+            "unknown_lighting_meters": 1645,
+            "longest_facility_gap_meters": 1645
+          },
+          "area_reports": [],
+          "nearby": [
+            {
+              "name": "Azad Hind Dhaba",
+              "hours": "UNKNOWN"
+            },
+            {
+              "name": "Composite Hospital",
+              "hours": "UNKNOWN"
+            },
+            {
+              "name": "Kolkata@99",
+              "hours": "UNKNOWN"
+            }
+          ],
+          "preferences": {
+            "lighting": false,
+            "nearby_places": false
+          }
+        },
+        {
+          "route_id": "route-0",
+          "meters": 2338,
+          "seconds": 1683,
+          "safety": "UNKNOWN",
+          "environment": {
+            "mapped_meters": 2211,
+            "lighting_known_meters": 0,
+            "mapped_lit_meters": 0,
+            "mapped_unlit_meters": 0,
+            "current_lighting_meters": 0,
+            "walkway_known_meters": 0,
+            "mapped_walkway_meters": 0,
+            "restricted_meters": 0,
+            "unknown_lighting_meters": 2338,
+            "longest_facility_gap_meters": 2338
+          },
+          "area_reports": [],
+          "nearby": [
+            {
+              "name": "Azad Hind Dhaba",
+              "hours": "UNKNOWN"
+            },
+            {
+              "name": "Composite Hospital",
+              "hours": "UNKNOWN"
+            },
+            {
+              "name": "Kolkata@99",
+              "hours": "UNKNOWN"
+            }
+          ],
+          "preferences": {
+            "lighting": false,
+            "nearby_places": false
+          }
+        }
+      ]
+    },
+    {
+      "area": "Sector II",
+      "origin": {
+        "label": "BG Block",
+        "latitude": 22.5953692,
+        "longitude": 88.4222324
+      },
+      "destination": {
+        "label": "BJ Block",
+        "latitude": 22.5902239,
+        "longitude": 88.4267468
+      },
+      "routes": [
+        {
+          "route_id": "route-0",
+          "meters": 1089,
+          "seconds": 784,
+          "safety": "UNKNOWN",
+          "environment": {
+            "mapped_meters": 1088,
+            "lighting_known_meters": 0,
+            "mapped_lit_meters": 0,
+            "mapped_unlit_meters": 0,
+            "current_lighting_meters": 0,
+            "walkway_known_meters": 0,
+            "mapped_walkway_meters": 0,
+            "restricted_meters": 0,
+            "unknown_lighting_meters": 1088,
+            "longest_facility_gap_meters": 1088
+          },
+          "area_reports": [
+            {
+              "name": "BG Block",
+              "historical": true,
+              "meters": 231
+            }
+          ],
+          "nearby": [
+            {
+              "name": "Santa's Fantasea",
+              "hours": "LISTED_CLOSED"
+            },
+            {
+              "name": "BF block Residents' Association",
+              "hours": "UNKNOWN"
+            },
+            {
+              "name": "Anandalok Polyclinic",
+              "hours": "UNKNOWN"
+            }
+          ],
+          "preferences": {
+            "lighting": false,
+            "nearby_places": false
+          }
+        },
+        {
+          "route_id": "route-1",
+          "meters": 1164,
+          "seconds": 838,
+          "safety": "UNKNOWN",
+          "environment": {
+            "mapped_meters": 1163,
+            "lighting_known_meters": 0,
+            "mapped_lit_meters": 0,
+            "mapped_unlit_meters": 0,
+            "current_lighting_meters": 0,
+            "walkway_known_meters": 0,
+            "mapped_walkway_meters": 0,
+            "restricted_meters": 0,
+            "unknown_lighting_meters": 1163,
+            "longest_facility_gap_meters": 1163
+          },
+          "area_reports": [
+            {
+              "name": "BG Block",
+              "historical": true,
+              "meters": 231
+            }
+          ],
+          "nearby": [
+            {
+              "name": "Santa's Fantasea",
+              "hours": "LISTED_CLOSED"
+            },
+            {
+              "name": "BF block Residents' Association",
+              "hours": "UNKNOWN"
+            },
+            {
+              "name": "Anandalok Polyclinic",
+              "hours": "UNKNOWN"
+            }
+          ],
+          "preferences": {
+            "lighting": false,
+            "nearby_places": false
+          }
+        }
+      ]
+    }
+  ],
+  "trips_started": 0,
+  "alerts_requested": 0
+}

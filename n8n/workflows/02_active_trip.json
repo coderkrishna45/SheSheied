@@ -1,0 +1,296 @@
+{
+  "name": "SheShield - Active Trip Management",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "start-trip",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        100
+      ],
+      "id": "wh-start",
+      "name": "Webhook: Start Trip",
+      "webhookId": "start-trip-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst b = $input.first().json.body ?? $input.first().json;\nif (!b.trip_id || !b.route_id) throw new Error('Missing trip_id or route_id');\nconst token = 'TOK-' + Date.now() + '-' + Math.random().toString(36).slice(2,8).toUpperCase();\n// Store trip state in n8n workflow static data (in-memory for demo)\n// For production: use a database or Redis via n8n credentials\nconst state = this.getWorkflowStaticData('node');\nstate[b.trip_id] = {\n  trip_id: b.trip_id,\n  route_id: b.route_id,\n  session_token: token,\n  trusted_contacts: b.trusted_contacts ?? [],\n  state: 'ACTIVE',\n  started_at: new Date().toISOString(),\n  last_lat: null, last_lng: null\n};\nreturn [{json: {trip_id: b.trip_id, session_token: token, status: 'ACTIVE'}}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        100
+      ],
+      "id": "code-start",
+      "name": "Create Trip Session"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        100
+      ],
+      "id": "resp-start",
+      "name": "Respond: Trip Started"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "location-update",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        380
+      ],
+      "id": "wh-loc",
+      "name": "Webhook: Location Update",
+      "webhookId": "location-update-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// \u2500\u2500\u2500 Location update handler \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n// Receives GPS from the Android app, checks proximity to high-risk segments,\n// returns a risk_event if check-in is required.\n//\n// In a full implementation: compare the received lat/lng against the\n// precomputed route corridor risk segments from the plan-trip workflow.\n// For the hackathon: use a simple distance-from-destination heuristic\n// combined with the trip's known risk_level.\n\nconst b = $input.first().json.body ?? $input.first().json;\nconst state = this.getWorkflowStaticData('node');\nconst trip = state[b.trip_id];\n\nif (!trip) {\n  return [{json: {error: 'Trip not found', trip_id: b.trip_id, risk_event: null}}];\n}\n\n// Validate session token\nif (trip.session_token !== b.session_token) {\n  return [{json: {error: 'Invalid session token', trip_id: b.trip_id, risk_event: null}}];\n}\n\n// Update last known location\ntrip.last_lat = b.latitude;\ntrip.last_lng = b.longitude;\ntrip.last_update = new Date().toISOString();\nstate[b.trip_id] = trip;\n\n// \u2500\u2500 Risk zone check (simplified for hackathon) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n// In production: compare against precomputed high-risk polyline segments.\n// For demo: trigger CHECK_IN_REQUIRED if trip state transitions to a \n// known risk zone (determined by a synthetic check based on trip progress).\n\nlet riskEvent = null;\nconst nowMs = Date.now();\n\n// Only trigger check-in if trip state is ACTIVE (not already pending)\n// and we haven't sent one in the last 5 minutes\nif (trip.state === 'ACTIVE') {\n  const lastCheckIn = trip.last_checkin_ms ?? 0;\n  const minsBetween = (nowMs - lastCheckIn) / (1000 * 60);\n  \n  // Demo mode: trigger after the first location update if demo_trigger is set\n  // Real mode: this would check against route segment risk scores\n  if (b.demo_trigger === true && minsBetween > 1) {\n    riskEvent = {\n      type: 'CHECK_IN_REQUIRED',\n      risk_level: 'HIGH',\n      message: 'You have entered a reported-risk area. Are you safe?',\n      check_in_deadline_ms: nowMs + (5 * 60 * 1000) // 5 minute window\n    };\n    trip.state = 'CHECK_IN_PENDING';\n    trip.checkin_deadline_ms = riskEvent.check_in_deadline_ms;\n    trip.last_checkin_ms = nowMs;\n    state[b.trip_id] = trip;\n  }\n}\n\nreturn [{json: {trip_id: b.trip_id, risk_event: riskEvent}}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        380
+      ],
+      "id": "code-loc",
+      "name": "Process Location Update"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        380
+      ],
+      "id": "resp-loc",
+      "name": "Respond: Location ACK"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "check-in",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        660
+      ],
+      "id": "wh-checkin",
+      "name": "Webhook: Check-In",
+      "webhookId": "check-in-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst b = $input.first().json.body ?? $input.first().json;\nconst state = this.getWorkflowStaticData('node');\nconst trip = state[b.trip_id];\n\nif (!trip) return [{json: {error: 'Trip not found', new_state: 'UNKNOWN', message: 'Trip not found'}}];\nif (trip.session_token !== b.session_token) return [{json: {error: 'Unauthorized', new_state: 'UNKNOWN', message: 'Invalid token'}}];\n\nlet newState, message;\nif (b.status === 'SAFE') {\n  newState = 'ACTIVE';\n  message = 'Check-in confirmed. Trip monitoring continues.';\n  trip.state = 'ACTIVE';\n  trip.checkin_deadline_ms = null;\n} else if (b.status === 'SOS') {\n  newState = 'SOS_ACTIVE';\n  message = 'SOS received. Escalation initiated.';\n  trip.state = 'SOS_ACTIVE';\n} else {\n  newState = trip.state;\n  message = 'Unknown status';\n}\nstate[b.trip_id] = trip;\nreturn [{json: {trip_id: b.trip_id, new_state: newState, message}}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        660
+      ],
+      "id": "code-checkin",
+      "name": "Process Check-In"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        660
+      ],
+      "id": "resp-checkin",
+      "name": "Respond: Check-In ACK"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "end-trip",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        880
+      ],
+      "id": "wh-end",
+      "name": "Webhook: End Trip",
+      "webhookId": "end-trip-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst b = $input.first().json.body ?? $input.first().json;\nconst state = this.getWorkflowStaticData('node');\nconst trip = state[b.trip_id];\nif (trip && trip.session_token === b.session_token) {\n  trip.state = 'COMPLETED';\n  trip.ended_at = new Date().toISOString();\n  state[b.trip_id] = trip;\n}\nreturn [{json: {trip_id: b.trip_id, status: 'COMPLETED'}}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        880
+      ],
+      "id": "code-end",
+      "name": "End Trip"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        880
+      ],
+      "id": "resp-end",
+      "name": "Respond: Trip Ended"
+    }
+  ],
+  "connections": {
+    "Webhook: Start Trip": {
+      "main": [
+        [
+          {
+            "node": "Create Trip Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Trip Session": {
+      "main": [
+        [
+          {
+            "node": "Respond: Trip Started",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Location Update": {
+      "main": [
+        [
+          {
+            "node": "Process Location Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Location Update": {
+      "main": [
+        [
+          {
+            "node": "Respond: Location ACK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Check-In": {
+      "main": [
+        [
+          {
+            "node": "Process Check-In",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Check-In": {
+      "main": [
+        [
+          {
+            "node": "Respond: Check-In ACK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: End Trip": {
+      "main": [
+        [
+          {
+            "node": "End Trip",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "End Trip": {
+      "main": [
+        [
+          {
+            "node": "Respond: Trip Ended",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "instanceId": "local"
+  },
+  "id": "sheshield-active-trip-v2",
+  "tags": [
+    {
+      "name": "sheshield"
+    }
+  ]
+}

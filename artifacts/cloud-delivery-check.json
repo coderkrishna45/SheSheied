@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-03T05:41:47.103Z",
+  "recipient_last4": "1265",
+  "path": "App API → n8n Cloud → Twilio",
+  "sos": {
+    "overall": "ACKNOWLEDGED",
+    "voice": [
+      "ACKNOWLEDGED"
+    ],
+    "sms": [
+      "DELIVERED"
+    ]
+  },
+  "companion": {
+    "status": "DELIVERED"
+  },
+  "provider": [
+    {
+      "resource": "Calls",
+      "http": 200,
+      "status": "completed",
+      "error_code": null,
+      "duration": "28"
+    },
+    {
+      "resource": "Messages",
+      "http": 200,
+      "status": "delivered",
+      "error_code": null,
+      "duration": null
+    },
+    {
+      "resource": "Messages",
+      "http": 200,
+      "status": "delivered",
+      "error_code": null,
+      "duration": null
+    }
+  ],
+  "provider_rechecked_at": "2026-10-03T05:50:03.821Z"
+}

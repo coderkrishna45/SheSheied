@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-02T20:46:48.621Z",
+  "isolation": "In-memory API, worker disabled, no contacts, no n8n requests",
+  "facility": {
+    "id": "node/7668176345",
+    "name": "Composite Hospital",
+    "hours": "UNKNOWN",
+    "entrance": "MAP_POINT_UNCONFIRMED"
+  },
+  "original_walk_meters": 1462,
+  "via_walk_meters": 1805,
+  "destination_preserved": true,
+  "protection_preserved": true,
+  "safety": "UNKNOWN",
+  "alerts_requested": 0
+}

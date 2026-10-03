@@ -1,0 +1,70 @@
+{
+  "version": "2026-10-02.osm.1",
+  "sha256": "4ffff551f6e87ca4c1710742244679536c80a623c79d8e9f421d3a09d253aabe",
+  "collected_at": "2026-10-02T20:25:56.092869+00:00",
+  "raw_sources": [
+    {
+      "file": "saltlake-east.osm.xml",
+      "sha256": "bd937203c4333414598fda2f8c147a8b1540f1e89afd3686188ffe4cdb6bde1f",
+      "retrieved_at": "2026-10-02T20:18:57.863102+00:00"
+    },
+    {
+      "file": "saltlake-north-0.osm.xml",
+      "sha256": "7fa0bdb9bf6bdedfeb9fda7af699d92a69f7d2cb31fba249020af7e5bf4c9a65",
+      "retrieved_at": "2026-10-02T20:23:09.954888+00:00"
+    },
+    {
+      "file": "saltlake-north-1.osm.xml",
+      "sha256": "388e0f17a39de01c16fb1214213ba6a4fb01c27bfc1c2982b638f50365cf2159",
+      "retrieved_at": "2026-10-02T20:23:13.413382+00:00"
+    },
+    {
+      "file": "saltlake-north-east.osm.xml",
+      "sha256": "6d9f76a47d2f2d1cf22ac3af5e2ff10bf0b522e22e2bbb3df233682b7311487f",
+      "retrieved_at": "2026-10-02T20:23:16.854071+00:00"
+    },
+    {
+      "file": "saltlake-north-west-0.osm.xml",
+      "sha256": "76509476cd11ee616f6cc40a79d7afd56bfebaebd2f500c741127c5997c2b4c8",
+      "retrieved_at": "2026-10-02T20:23:23.070088+00:00"
+    },
+    {
+      "file": "saltlake-north-west-1.osm.xml",
+      "sha256": "1a53470122ff066109bdf62a09d2dab9b46b119a554f5568a852267f16775e4c",
+      "retrieved_at": "2026-10-02T20:23:27.174036+00:00"
+    },
+    {
+      "file": "saltlake-south.osm.xml",
+      "sha256": "ddb3863783e38f3a260a723a73b99f48caabc38b71f2c4abd77d289867b01d65",
+      "retrieved_at": "2026-10-02T20:18:53.220808+00:00"
+    },
+    {
+      "file": "saltlake-west-0.osm.xml",
+      "sha256": "5729546e254ae1b375356556b863550ba84a665185a1e61ef9bca5022cfe143a",
+      "retrieved_at": "2026-10-02T20:22:59.660768+00:00"
+    },
+    {
+      "file": "saltlake-west-1.osm.xml",
+      "sha256": "4232ba21f94550c74f1368214c1497e5197869b6340e02da67c888660adaab22",
+      "retrieved_at": "2026-10-02T20:23:04.061324+00:00"
+    },
+    {
+      "file": "sector-ii.osm.xml",
+      "sha256": "385ad97551eaef493c4b7b53ac53154163eb7b7c7ad54d5c5130d53a012ad1c4",
+      "retrieved_at": "2026-10-02T20:18:42.057048+00:00"
+    },
+    {
+      "file": "sector-v.osm.xml",
+      "sha256": "93cf51e5fb2eaa4635cdcd69d40eef63c044774b688b624d30539b0ee2eec554",
+      "retrieved_at": "2026-10-02T20:17:01.307794+00:00"
+    }
+  ],
+  "roads": 9146,
+  "places": 237,
+  "areas": 1143,
+  "lighting_tagged_ways": 114,
+  "sidewalk_tagged_ways": 198,
+  "places_with_hours": 46,
+  "independently_validated": false,
+  "complete_saltlake_coverage": false
+}

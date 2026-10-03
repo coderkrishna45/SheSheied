@@ -1,0 +1,19 @@
+{
+  "name": "sheshield-api",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "test": "node --test --test-isolation=none test/*.test.js",
+    "check": "node --check src/server.js"
+  },
+  "dependencies": {
+    "fastify": "^5.6.2",
+    "opening_hours": "3.15.0",
+    "suncalc": "2.1.0"
+  }
+}

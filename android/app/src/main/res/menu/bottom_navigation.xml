@@ -1,0 +1,1 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"><item android:id="@id/homeFragment" android:title="Journey" android:icon="@drawable/ic_route"/><item android:id="@id/contactsFragment" android:title="Circle" android:icon="@drawable/ic_contacts"/><item android:id="@+id/historyFragment" android:title="Activity" android:icon="@drawable/ic_history"/></menu>
